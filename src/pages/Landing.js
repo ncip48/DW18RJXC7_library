@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { CustomButton, CustomJumbotron, CustomModal } from "../components";
+import Login from "./Login";
+import Register from "./Register";
 
 const style_h1 = {
   position: "absolute",
@@ -47,19 +49,19 @@ const style_icon = {
   top: 37,
 };
 
+console.log(localStorage.getItem('user'))
+
 function Landing() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState();
+  const [showRegister, setShowRegister] = useState();
   function show_modal_login() {
     setShowLogin(true);
-    setShowRegister(false);
   }
   function close_modal_login() {
     setShowLogin(false);
   }
   function show_modal_reg() {
     setShowRegister(true);
-    setShowLogin(false);
   }
   function close_modal_reg() {
     setShowRegister(false);
@@ -85,8 +87,9 @@ function Landing() {
           height: 50,
           left: 78,
           top: 615,
+          zIndex:'0',
         }}
-        onClick={() => show_modal_login()}
+        onClick={() => show_modal_reg()}
       >
         Sign Up
       </CustomButton>
@@ -102,17 +105,33 @@ function Landing() {
           height: 50,
           left: 320,
           top: 615,
+          zIndex:'0',
         }}
-        onClick={() => show_modal_reg()}
+        onClick={() => show_modal_login()}
       >
         Sign In
       </CustomButton>
 
-      <CustomModal height={408} width={416} bgcolor="#e8e4fd" show={showLogin} close={() => close_modal_login()}>
-        Login
+      <CustomModal
+        height={680}
+        width={416}
+        bgcolor="#ffffff"
+        show={showRegister}
+        name="Register"
+        close={() => close_modal_reg()}
+      >
+        <Register />
       </CustomModal>
-      <CustomModal height={680} width={416} bgcolor="#e8e4fd" show={showRegister} close={() => close_modal_reg()}>
-        Register
+
+      <CustomModal
+        height={408}
+        width={416}
+        bgcolor="#ffffff"
+        show={showLogin}
+        name="Login"
+        close={() => close_modal_login()}
+      >
+        <Login />
       </CustomModal>
     </CustomJumbotron>
   );

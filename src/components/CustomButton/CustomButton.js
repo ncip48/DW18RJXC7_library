@@ -9,6 +9,7 @@ export const CustomButton = ({
   color,
   rounded,
   fontfamily,
+  fontSize,
   containerStyle,
 }) => {
   const style = {
@@ -18,13 +19,12 @@ export const CustomButton = ({
     borderRadius: rounded ? height / 2 : 5,
     height: height,
     width: width,
-    fontSize: height / 2.5,
+    fontSize: fontSize ? fontSize : height / 2.5,
     borderStyle: "solid",
     fontFamily: fontfamily,
     fontStyle: "normal",
     fontWeight: "normal",
     cursor: 'pointer',
-    margin: 10,
   };
 
   return (
