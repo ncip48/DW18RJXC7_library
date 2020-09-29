@@ -1,21 +1,37 @@
-import React from 'react';
+import React from "react";
 
-export const CustomButton = ({onClick,children,width,height,bgcolor,color,rounded}) => {
-    
-    const style = {
-        color:color,
-        backgroundColor:bgcolor,
-        borderColor:color,
-        borderRadius:rounded ? height/2 : 10,
-        height:height,
-        width:width,
-        fontSize:height/2.5,
-        borderStyle:'solid',
-        fontFamily: 'Poppins',
-        margin:10
-    }
-    
-    return (
-    <button style={style} onClick={onClick}>{children}</button>
-    )
-}
+export const CustomButton = ({
+  onClick,
+  children,
+  width,
+  height,
+  bgcolor,
+  color,
+  rounded,
+  fontfamily,
+  containerStyle,
+}) => {
+  const style = {
+    color: color,
+    backgroundColor: bgcolor,
+    borderColor: bgcolor,
+    borderRadius: rounded ? height / 2 : 5,
+    height: height,
+    width: width,
+    fontSize: height / 2.5,
+    borderStyle: "solid",
+    fontFamily: fontfamily,
+    fontStyle: "normal",
+    fontWeight: "normal",
+    cursor: 'pointer',
+    margin: 10,
+  };
+
+  return (
+    <div style={containerStyle}>
+      <button style={style} onClick={onClick}>
+        {children}
+      </button>
+    </div>
+  );
+};
