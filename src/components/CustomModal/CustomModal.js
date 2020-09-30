@@ -9,15 +9,17 @@ export const CustomModal = ({
   width,
   children,
 }) => {
-
   const style_container = {
     backgroundColor: "gray",
     width: "100%",
     height: "100vh",
     //opacity: show ? 1 : 0
     opacity: show ? 1 : 0,
+    transition: "all .7s ease",
+    WebkitTransition: "all .7s ease",
+    MozTransition: "all .7s ease",
     display: show ? "block" : "none",
-    zIndex:'1',
+    zIndex: "1",
   };
 
   const style_body = {
@@ -29,7 +31,6 @@ export const CustomModal = ({
     left: "50%",
     top: "50%",
     transform: "translate(-50%, -50%)",
-
   };
 
   const style_btnClose = {
@@ -39,12 +40,13 @@ export const CustomModal = ({
     borderColor: "transparent",
     float: "right",
     margin: 10,
+    outline: 'none'
   };
 
   const style_judul = {
     textAlign: "left",
     margin: 0,
-    marginLeft: 10,
+    //marginLeft: 10,
     position: "absolute",
     width: 116,
     height: 49,

@@ -1,40 +1,79 @@
 import React, { useState } from "react";
-import { CustomButton, CustomJumbotron, CustomTextInput } from "../components";
+import {
+  CustomButton,
+  CustomTextArea,
+  CustomSelect,
+  CustomTextInput,
+  CustomOption,
+} from "../components";
 
 function Register() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const style_1 = {
-    position: "absolute",
-    width: 350,
-    height: 50,
-    left: 33,
-    top: 119,
-  };
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("male");
 
-  const style_2 = {
-    position: "absolute",
-    width: 350,
-    height: 50,
-    left: 33,
-    top: 189,
+  const style = {
+    inputEmail: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 119,
+    },
+    inputPassword: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 189,
+    },
+    style_3: {
+      position: "absolute",
+      width: 298,
+      height: 25,
+      left: 59,
+      top: 595,
+      fontFamily: "Poppins",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: 16,
+      lineHeight: "25px",
+    },
+    inputName: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 259,
+    },
+    inputGender: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 329,
+    },
+    inputPhone: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 399,
+    },
+    inputAddress: {
+      position: "absolute",
+      width: 350,
+      height: 50,
+      left: 33,
+      top: 469,
+    },
   };
-
-  const style_3 = {
-    position: 'absolute',
-    width: 276,
-    height: 25,
-    left: 65,
-    top: 316,
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 16,
-    lineHeight: '25px',
-  }
 
   function handleClick() {
-    alert(username + " " + password);
+    alert('Email: ' + email + "\nPassword: " + password + "\nFull Name: " + name + "\nGender: " + gender + "\nPhone Number: " + phone  + "\nAddress: " + address);
   }
 
   return (
@@ -42,26 +81,85 @@ function Register() {
       <CustomTextInput
         width={350}
         borderColor="#BCBCBC"
-        name="text"
-        style={style_1}
+        name="email"
+        type="email"
+        style={style.inputEmail}
         placeholder="Email"
         bgcolor="#D2D2D2"
-        value={username}
+        required
+        value={email}
         onChange={(e) => {
-          setUsername(e.target.value);
+          setEmail(e.target.value);
         }}
       />
       <CustomTextInput
         width={350}
         borderColor="#BCBCBC"
         name="password"
-        password
-        style={style_2}
+        type="password"
+        style={style.inputPassword}
         bgcolor="#D2D2D2"
+        required
         placeholder="Password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
+        }}
+      />
+      <CustomTextInput
+        width={350}
+        borderColor="#BCBCBC"
+        name="fullname"
+        type="text"
+        style={style.inputName}
+        bgcolor="#D2D2D2"
+        required
+        placeholder="Full Name"
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
+      <CustomSelect
+        width={350}
+        borderColor="#BCBCBC"
+        name="fullname"
+        style={style.inputGender}
+        bgcolor="#D2D2D2"
+        required
+        placeholder="Address"
+        onChange={(e) => {
+          setGender(e.target.value);
+        }}
+      >
+        <CustomOption value="male">Male</CustomOption>
+        <CustomOption value="female">Female</CustomOption>
+      </CustomSelect>
+      <CustomTextInput
+        width={350}
+        borderColor="#BCBCBC"
+        name="phone"
+        type="number"
+        style={style.inputPhone}
+        bgcolor="#D2D2D2"
+        required
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) => {
+          setPhone(e.target.value);
+        }}
+      />
+      <CustomTextArea
+        width={350}
+        borderColor="#BCBCBC"
+        name="fullname"
+        style={style.inputAddress}
+        bgcolor="#D2D2D2"
+        required
+        placeholder="Address"
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
         }}
       />
       <CustomButton
@@ -76,13 +174,13 @@ function Register() {
           width: 350,
           height: 50,
           left: 33,
-          top: 275,
+          top: 555,
         }}
         onClick={() => handleClick()}
       >
-        Sign In
+        Sign Up
       </CustomButton>
-      <h6 style={style_3}>Don't have an account ? Klik Here</h6>
+      <h6 style={style.style_3}>Already have an account ? Klik Here</h6>
     </div>
   );
 }

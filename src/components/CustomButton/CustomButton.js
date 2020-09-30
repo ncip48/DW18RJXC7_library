@@ -25,6 +25,7 @@ export const CustomButton = ({
     fontStyle: "normal",
     fontWeight: "normal",
     cursor: 'pointer',
+    outline: 'none'
   };
 
   return (
