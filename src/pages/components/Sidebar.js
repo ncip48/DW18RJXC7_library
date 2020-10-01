@@ -39,8 +39,8 @@ export const Sidebar = () => {
           width={270}
           height={74}
           rounded
-          bgcolor="white"
-          color="#929292"
+          bgcolor={window.location.pathname === '/library' ? "#EE4622" : "white"}
+          color={window.location.pathname === '/library' ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnMyLibrary}
         >
