@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { CustomButton, CustomJumbotron, CustomTextInput } from "../components";
+import { useHistory } from "react-router-dom";
+import { CustomButton, CustomTextInput } from "../components";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const style = {
     inputEmail: {
@@ -39,6 +41,7 @@ function Login() {
       "user",
       JSON.stringify({ email: email, password: password })
     );
+    history.push("/dashboard")
   }
 
   return (

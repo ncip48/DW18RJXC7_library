@@ -17,7 +17,7 @@ export const CustomTextInput = ({onChange, bgcolor, width, placeholder, value, b
 
     return (
         <div style={style}>
-        <input style={styles} type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} required={required}></input>
+        <input style={styles} type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} required={required} onErr></input>
         </div>
     )
 }

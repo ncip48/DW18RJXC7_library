@@ -123,11 +123,10 @@ function Register() {
       <CustomSelect
         width={350}
         borderColor="#BCBCBC"
-        name="fullname"
+        name="gender"
         style={style.inputGender}
         bgcolor="#D2D2D2"
         required
-        placeholder="Address"
         onChange={(e) => {
           setGender(e.target.value);
         }}
@@ -152,7 +151,7 @@ function Register() {
       <CustomTextArea
         width={350}
         borderColor="#BCBCBC"
-        name="fullname"
+        name="address"
         style={style.inputAddress}
         bgcolor="#D2D2D2"
         required

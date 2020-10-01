@@ -67,13 +67,13 @@ function Landing() {
   }
   return (
     <CustomJumbotron bgcolor="#ffffff">
-      <img style={style.style_icon} src={require("../assets/img/Icon.png")} />
+      <img alt="icon" style={style.style_icon} src={require("../assets/img/Icon.png")} />
       <h1 style={style.style_h1}>Your library anywhere</h1>
       <div style={style.style_sub}>
         Sign-up today and receive unlimited accesss to all of your reading -
         share your book.
       </div>
-      <img style={style.style_img} src={require("../assets/img/bg1.png")} />
+      <img alt="bg" style={style.style_img} src={require("../assets/img/bg1.png")} />
       <CustomButton
         width={211}
         height={50}
