@@ -10,7 +10,7 @@ export const CustomModal = ({
   children,
 }) => {
   const style_container = {
-    backgroundColor: "gray",
+    backgroundColor: "rgba(128,128,128,0.5)",
     width: "100%",
     height: "100vh",
     //opacity: show ? 1 : 0
@@ -20,6 +20,8 @@ export const CustomModal = ({
     MozTransition: "all .7s ease",
     display: show ? "block" : "none",
     zIndex: "1",
+    position:'absolute',
+    top:0
   };
 
   const style_body = {

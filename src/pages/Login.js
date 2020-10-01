@@ -27,12 +27,13 @@ function Login() {
       width: 276,
       height: 25,
       left: 65,
-      top: 316,
+      top: 355,
       fontFamily: "Poppins",
       fontStyle: "normal",
       fontWeight: "normal",
       fontSize: 16,
       lineHeight: "25px",
+      margin:0
     },
   };
 

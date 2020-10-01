@@ -74,7 +74,7 @@ function Home() {
             <div className="row justify-content-between">
               <h1 style={style.txtList}>List Books</h1>
               <Dropdown drop="left">
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle variant="danger" id="dropdown-basic">
                   Category
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -89,7 +89,7 @@ function Home() {
                 return (
                   <ListBook
                     key={index}
-                    index={index}
+                    index={book.id}
                     image={book.imageLink}
                     title={book.title}
                     author={book.author}
@@ -105,44 +105,44 @@ function Home() {
 }
 
 const style = {
-  container: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingRight: 35,
-    //paddingLeft: 35,
-    marginRight: "auto",
-    marginLeft: "auto",
-  },
-  row: {
-    display: "grid",
-    gridTemplateColumns: "30% 70%",
-  },
-  row2: {
-    display: "grid",
-    gridTemplateColumns: "25% 25% 25% 25%",
-  },
-  kotak: {
-    display: "grid",
-    gridTemplateColumns: "60% 40%",
-    border: "4px solid #E6F2FD",
-    boxSizing: "border-box",
-    backgroundColor: "#E6F2FD",
-    width: "100%",
-    height: 420,
-    marginTop: 50,
-    borderRadius: 10,
-  },
-  containerTeks: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 50,
-  },
-  containerImg: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // container: {
+  //   alignItems: "center",
+  //   justifyContent: "space-between",
+  //   paddingRight: 35,
+  //   //paddingLeft: 35,
+  //   marginRight: "auto",
+  //   marginLeft: "auto",
+  // },
+  // row: {
+  //   display: "grid",
+  //   gridTemplateColumns: "30% 70%",
+  // },
+  // row2: {
+  //   display: "grid",
+  //   gridTemplateColumns: "25% 25% 25% 25%",
+  // },
+  // kotak: {
+  //   display: "grid",
+  //   gridTemplateColumns: "60% 40%",
+  //   border: "4px solid #E6F2FD",
+  //   boxSizing: "border-box",
+  //   backgroundColor: "#E6F2FD",
+  //   width: "100%",
+  //   height: 420,
+  //   marginTop: 50,
+  //   borderRadius: 10,
+  // },
+  // containerTeks: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   justifyContent: "center",
+  //   padding: 50,
+  // },
+  // containerImg: {
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
   txtJudul: {
     fontFamily: "Times New Roman",
     fontStyle: "normal",

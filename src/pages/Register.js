@@ -35,7 +35,7 @@ function Register() {
       width: 298,
       height: 25,
       left: 59,
-      top: 595,
+      top: 625,
       fontFamily: "Poppins",
       fontStyle: "normal",
       fontWeight: "normal",
