@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CustomButton } from "../../components";
 import { FaRegUser } from "react-icons/fa";
 import { BiBookAdd, BiBookAlt, BiLogOut } from "react-icons/bi";
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 export const Sidebar = () => {
+  const [dispatch] = useContext(UserContext);
   const history = useHistory();
-  function logout(){
-    localStorage.clear();
-    history.push('/')
+  function logout() {
+    dispatch({
+      type: "LOGOUT",
+    });
+    //localStorage.clear();
+    history.push("/");
   }
+
+  console.log(window.location.pathname);
   return (
-    <div style={{ position:'fixed' }}>
+    <div style={{ position: "fixed" }}>
       <div style={style.containerPp}>
-        <img alt="pp" src={require("../../assets/img/pp.png")} style={style.pp} />
+        <img
+          alt="pp"
+          src={require("../../assets/img/pp.png")}
+          style={style.pp}
+        />
       </div>
       <div style={style.name}>Herly Chahya</div>
       <hr style={style.divider} />
       <Link to="/profile">
         <CustomButton
-          width={270}
+          width={230}
           height={74}
           rounded
-          bgcolor={window.location.pathname === '/profile' ? "#EE4622" : "white"}
-          color={window.location.pathname === '/profile' ? "white" : "#929292"}
+          bgcolor={
+            window.location.pathname === "/profile" ? "#EE4622" : "white"
+          }
+          color={window.location.pathname === "/profile" ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnProfile}
         >
@@ -32,11 +45,13 @@ export const Sidebar = () => {
       </Link>
       <Link to="/library">
         <CustomButton
-          width={270}
+          width={230}
           height={74}
           rounded
-          bgcolor={window.location.pathname === '/library' ? "#EE4622" : "white"}
-          color={window.location.pathname === '/library' ? "white" : "#929292"}
+          bgcolor={
+            window.location.pathname === "/library" ? "#EE4622" : "white"
+          }
+          color={window.location.pathname === "/library" ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnMyLibrary}
         >
@@ -45,11 +60,13 @@ export const Sidebar = () => {
       </Link>
       <Link to="/add-book">
         <CustomButton
-          width={270}
+          width={230}
           height={74}
           rounded
-          bgcolor={window.location.pathname === '/add-book' ? "#EE4622" : "white"}
-          color={window.location.pathname === '/add-book' ? "white" : "#929292"}
+          bgcolor={
+            window.location.pathname === "/add-book" ? "#EE4622" : "white"
+          }
+          color={window.location.pathname === "/add-book" ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnAddBook}
         >
@@ -71,7 +88,7 @@ export const Sidebar = () => {
       </CustomButton>
     </div>
   );
-}
+};
 
 const style = {
   containerLogo: {

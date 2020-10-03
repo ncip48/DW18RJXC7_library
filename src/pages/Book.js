@@ -13,24 +13,24 @@ function Book() {
   return (
     <>
       <Navbar />
-      <div className="container mt-5">
+      <div className="container mt-7">
         <div className="row">
-          <div className="col-md-4 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
-          <div className="col-md-8 mb-5">
+          <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div className="card w-100" style={{ borderWidth: 0 }}>
                 <div className="row">
-                  <div className="col-md-6 d-flex justify-content-center flex-column">
+                  <div className="col-md-5 d-flex justify-content-center flex-column">
                     <img
                       alt="book"
                       className="figure-img img-fluid rounded"
                       src={require(`../assets/img/${book[0].imageLink}`)}
-                      style={{ height: 500, width: 400 }}
+                      style={{ height: 540, width: 400 }}
                     />
                   </div>
-                  <div className="col-md-6 d-flex justify-content my-2 flex-column justify-content-center">
+                  <div className="col-md-7 d-flex justify-content my-2 flex-column justify-content-center">
                     <h1 style={style.title}>{book[0].title}</h1>
                     <h5 style={style.author}>{book[0].author}</h5>
                     <h6 style={style.sub}>Publication Date</h6>

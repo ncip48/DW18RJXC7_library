@@ -1,74 +1,81 @@
 import React, { useState } from "react";
-import { CustomButton, CustomJumbotron, CustomModal } from "../components";
+//import { CustomButton, CustomJumbotron, CustomModal } from "../components";
+import { Navbar } from "./components";
 import Login from "./Login";
 import Register from "./Register";
+import CustomModal from "../components/CustomModal";
 
 console.log(localStorage.getItem("user"));
 
 function Landing() {
-  const [showLogin, setShowLogin] = useState();
-  const [showRegister, setShowRegister] = useState();
-  function show_modal_login() {
-    setShowLogin(true);
-    setShowRegister(false);
-  }
-  function close_modal_login() {
-    setShowLogin(false);
-  }
-  function show_modal_reg() {
-    setShowRegister(true);
-    setShowLogin(false);
-  }
-  function close_modal_reg() {
-    setShowRegister(false);
-  }
-  return (
-    <CustomJumbotron bgcolor="#ffffff">
-      <img alt="icon" style={style.style_icon} src={require("../assets/img/Icon.png")} />
-      <h1 style={style.style_h1}><i>Your</i> library anywhere</h1>
-      <div style={style.style_sub}>
-        Sign-up today and receive unlimited accesss to all of your reading -
-        share your book.
-      </div>
-      <img alt="bg" style={style.style_img} src={require("../assets/img/bg1.png")} />
-      <CustomButton
-        width={211}
-        height={50}
-        bgcolor="#EE4622"
-        color="#ffffff"
-        fontfamily="Poppins"
-        containerStyle={{
-          position: "absolute",
-          width: 211,
-          height: 50,
-          left: 78,
-          top: 615,
-          zIndex: "0",
-        }}
-        onClick={() => show_modal_reg()}
-      >
-        Sign Up
-      </CustomButton>
-      <CustomButton
-        width={211}
-        height={50}
-        bgcolor="#E9E9E9"
-        color="#000000"
-        fontfamily="Poppins"
-        containerStyle={{
-          position: "absolute",
-          width: 211,
-          height: 50,
-          left: 320,
-          top: 615,
-          zIndex: "0",
-        }}
-        onClick={() => show_modal_login()}
-      >
-        Sign In
-      </CustomButton>
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  // function show_modal_login() {
+  //   setShowLogin(true);
+  //   setShowRegister(false);
+  // }
+  // function close_modal_login() {
+  //   setShowLogin(false);
+  // }
+  // function show_modal_reg() {
+  //   setShowRegister(true);
+  //   setShowLogin(false);
+  // }
+  // function close_modal_reg() {
+  //   setShowRegister(false);
+  // }
 
-      <CustomModal
+  return (
+    <>
+      <Navbar />
+      <div
+        className="jumbotron m-0 d-flex justify-content-center flex-column"
+        style={{
+          height: "100vh",
+          width: "100%",
+          backgroundColor: "white",
+          position: "fixed",
+          backgroundImage: "url(" + require("../assets/img/bg1.png") + ")",
+          backgroundPosition: "right",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="row">
+          <div className="col-12 col-md-6 ml-5">
+            <h1 style={style.style_h1}>
+              <i>Your</i> library anywhere
+            </h1>
+            <h5 style={style.style_sub}>
+              Sign-up today and receive unlimited accesss to all of your reading
+              - share your book.
+            </h5>
+            <div className="row">
+              <div className="col-4">
+                <button
+                  className="btn btn-danger btn-block"
+                  style={{ height: 50, backgroundColor: "#EE4622" }}
+                  onClick={() => setShowRegister(true)}
+                >
+                  Sign Up
+                </button>
+              </div>
+              <div className="col-4">
+                <button
+                  className="btn btn-block"
+                  style={{
+                    height: 50,
+                    backgroundColor: "#E9E9E9",
+                  }}
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <CustomModal
         height={680}
         width={416}
         bgcolor="#ffffff"
@@ -88,19 +95,26 @@ function Landing() {
         close={() => close_modal_login()}
       >
         <Login />
+      </CustomModal> */}
+      <CustomModal
+        title="Register"
+        show={showRegister}
+        onHide={() => setShowRegister(false)}
+      >
+        <Register />
       </CustomModal>
-    </CustomJumbotron>
+    </>
   );
 }
 
 const style = {
   style_h1: {
-    position: "absolute",
-    margin: 0,
-    width: 572,
-    height: 182,
-    left: 78,
-    top: 235,
+    //position: "absolute",
+    marginBottom: 50,
+    // width: 572,
+    // height: 182,
+    // left: 78,
+    // top: 235,
     fontFamily: "Times New Roman",
     fontStyle: "normal",
     fontWeight: "bold",
@@ -110,12 +124,13 @@ const style = {
     color: "#000000",
   },
   style_sub: {
-    position: "absolute",
-    margin: 0,
-    width: 500,
-    height: 107,
-    left: 78,
-    top: 483,
+    //position: "absolute",
+    marginBottom: 25,
+    // width: 500,
+    // height: 107,
+    // left: 78,
+    // top: 483,
+    maxWidth: 500,
     fontFamily: "Poppins",
     textAlign: "left",
     fontStyle: "normal",

@@ -36,12 +36,12 @@ function AddBook() {
   return (
     <>
       <Navbar />
-      <div className="container mt-5">
+      <div className="container mt-7">
         <div className="row">
-          <div className="col-md-4 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
-          <div className="col-md-8 mb-5">
+          <div className="col-md-9 mb-5">
             <h1 style={style.txtList} className="mb-4">
               Add Book
             </h1>

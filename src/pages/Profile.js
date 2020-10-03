@@ -13,27 +13,27 @@ function Profile() {
     {
       id: 11,
       author: "Herly Chahya",
-      title: "Teknologi Blockchain",
+      title: "Blockchain with Hyperledger",
       accepted: true,
       imageLink: "crypto1.jpg",
     },
-    {
-      id: 12,
-      author: "Herly Chahya",
-      title: "Mengapa Ethereum Sangat Penting",
-      accepted: false,
-      imageLink: "eth1.png",
-    },
+    // {
+    //   id: 12,
+    //   author: "Herly Chahya",
+    //   title: "Java EE 8 Microservices",
+    //   accepted: false,
+    //   imageLink: "eth1.png",
+    // },
   ];
   return (
     <>
       <Navbar />
-      <div className="container mt-5">
+      <div className="container mt-7">
         <div className="row">
-          <div className="col-md-4 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
-          <div className="col-md-8 mb-5">
+          <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div
                 className="card w-100"
@@ -41,7 +41,7 @@ function Profile() {
               >
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md-8 d-flex justify-content-between flex-column">
+                    <div className="col-md-9 d-flex justify-content-between flex-column">
                       <div className="d-flex flex-row align-items-center">
                         <FaEnvelope
                           style={{ marginRight: 10 }}
@@ -87,7 +87,7 @@ function Profile() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4 d-flex justify-content my-2 flex-column justify-content-center">
+                    <div className="col-md-3 d-flex my-2 flex-column justify-content-center align-items-center">
                       <img
                         alt="book"
                         className="figure-img img-fluid rounded"

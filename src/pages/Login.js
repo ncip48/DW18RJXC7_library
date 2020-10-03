@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { CustomButton, CustomTextInput } from "../components";
+import { UserContext } from "../context/userContext";
 
 function Login() {
+  const [dispatch] = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ email: email, password: password })
-    );
-    email === "admin@admin.com" && password === "admin"
-      ? history.push("/admin")
-      : history.push("/dashboard");
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({ email: email, password: password })
+    // );
+    // email === "admin@admin.com" && password === "admin"
+    //   ? history.push("/admin")
+    //   : history.push("/dashboard");
+    if (email === "mbahcip00@gmail.com" && password === "123") {
+      history.push("/dashboard");
+      dispatch({
+        type: "LOGIN",
+      });
+    } else if (email === "admin@admin.com" && password === "admin") {
+      history.push("/admin");
+      dispatch({
+        type: "LOGIN",
+      });
+    }
   }
 
   return (

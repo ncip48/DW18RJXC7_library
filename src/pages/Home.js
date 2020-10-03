@@ -44,23 +44,25 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="container mt-5">
+      <div className="container mt-7">
         <div className="row">
-          <div className="col-md-4 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
-          <div className="col-md-8 mb-5">
+          <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div
                 className="card w-100 p-5"
                 style={{ backgroundColor: "#E6F2FD" }}
               >
                 <div className="row">
-                  <div className="col-md-8 d-flex justify-content-center flex-column">
-                    <h1 style={style.txtJudul}>Share, read and <i>love</i></h1>
+                  <div className="col-md-9 d-flex justify-content-center flex-column">
+                    <h1 style={style.txtJudul}>
+                      Share, read and <i>love</i>
+                    </h1>
                     <h2 style={style.txtSub}>Reading is fascinating</h2>
                   </div>
-                  <div className="col-md-4 d-flex justify-content-center my-2">
+                  <div className="col-md-3 d-flex justify-content-center my-2">
                     <img
                       alt="book"
                       className="figure-img img-fluid rounded"
@@ -73,7 +75,11 @@ function Home() {
             <div className="d-flex justify-content-between">
               <h1 style={style.txtList}>List Books</h1>
               <Dropdown drop="left">
-                <Dropdown.Toggle variant="danger" id="dropdown-basic" style={{backgroundColor:'#EE4622'}}>
+                <Dropdown.Toggle
+                  variant="danger"
+                  id="dropdown-basic"
+                  style={{ backgroundColor: "#EE4622" }}
+                >
                   Category
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -83,7 +89,7 @@ function Home() {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <div className="row">
+            <div className="row justify-content-between">
               {bookJson.map((book, index) => {
                 return (
                   <ListBook
