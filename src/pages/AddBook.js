@@ -5,9 +5,33 @@ import { BiBookAdd } from "react-icons/bi";
 
 function AddBook() {
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
+  const [pages, setPages] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [about, setAbout] = useState("");
+  const [file, setFile] = useState("");
+
   function handleSubmit(e) {
     e.preventDefault();
     setShow(true);
+    alert(
+      "Title: " +
+        title +
+        "\nPublish Date: " +
+        date +
+        "\nCategory: " +
+        category +
+        "\nPages: " +
+        pages +
+        "\nISBN: " +
+        isbn +
+        "\nAbout: " +
+        about +
+        "\nFile: " +
+        file
+    );
   }
   return (
     <>
@@ -31,10 +55,10 @@ function AddBook() {
                 placeholder="Title"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
               />
               <CustomTextInput
                 width={"100%"}
@@ -45,10 +69,10 @@ function AddBook() {
                 placeholder="Publication Date"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={date}
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
               />
               <CustomTextInput
                 width={"100%"}
@@ -59,10 +83,10 @@ function AddBook() {
                 placeholder="Category"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
               />
               <CustomTextInput
                 width={"100%"}
@@ -73,10 +97,10 @@ function AddBook() {
                 placeholder="Pages"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={pages}
+                onChange={(e) => {
+                  setPages(e.target.value);
+                }}
               />
               <CustomTextInput
                 width={"100%"}
@@ -87,25 +111,24 @@ function AddBook() {
                 placeholder="ISBN"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={isbn}
+                onChange={(e) => {
+                  setIsbn(e.target.value);
+                }}
               />
               <CustomTextArea
                 width={"100%"}
                 height={207}
                 borderColor="#BCBCBC"
-                name="isbn"
-                type="text"
+                name="about"
                 style={{ marginTop: 15, marginBottom: 15, height: 200 }}
-                placeholder="ISBN"
+                placeholder="About This Book"
                 bgcolor="rgb(210,210,210,0.25)"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={about}
+                onChange={(e) => {
+                  setAbout(e.target.value);
+                }}
               />
               <CustomTextInput
                 width={"100%"}
@@ -116,10 +139,10 @@ function AddBook() {
                 placeholder="Attache Book File"
                 bgcolor="#ffffff"
                 required
-                //value={email}
-                //   onChange={(e) => {
-                //     setEmail(e.target.value);
-                //   }}
+                value={file}
+                onChange={(e) => {
+                  setFile(e.target.value);
+                }}
               />
               <div className="d-flex justify-content-end">
                 <button

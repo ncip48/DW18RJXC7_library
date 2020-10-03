@@ -22,6 +22,7 @@ export const ListBook = ({ index, image, title, author, isactive }) => {
       lineHeight: "101.5%",
       margin: 0,
       opacity: isactive ? 1 : "0.5",
+      color: '#929292'
     },
   };
   return (

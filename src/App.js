@@ -8,6 +8,7 @@ import Book from './pages/Book';
 import Profile from './pages/Profile';
 import Read from './pages/Read';
 import AddBook from './pages/AddBook';
+import HomeAdmin from './pages/admin/HomeAdmin';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/add-book" component={AddBook} />
         <Route path="/book/:id" component={Book} />
         <Route path="/read/:id" component={Read} />
+        <Route path="/admin" component={HomeAdmin} />
         <Route path="/" component={Landing} />
       </Switch>
     </Router>
