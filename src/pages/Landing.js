@@ -67,6 +67,7 @@ function Landing() {
                     height: 50,
                     backgroundColor: "#E9E9E9",
                   }}
+                  onClick={() => setShowLogin(true)}
                 >
                   Sign In
                 </button>
@@ -75,27 +76,6 @@ function Landing() {
           </div>
         </div>
       </div>
-      {/* <CustomModal
-        height={680}
-        width={416}
-        bgcolor="#ffffff"
-        show={showRegister}
-        name="Register"
-        close={() => close_modal_reg()}
-      >
-        <Register />
-      </CustomModal>
-
-      <CustomModal
-        height={408}
-        width={416}
-        bgcolor="#ffffff"
-        show={showLogin}
-        name="Login"
-        close={() => close_modal_login()}
-      >
-        <Login />
-      </CustomModal> */}
       <CustomModal
         title="Register"
         show={showRegister}
@@ -103,18 +83,20 @@ function Landing() {
       >
         <Register />
       </CustomModal>
+      <CustomModal
+        title="Login"
+        show={showLogin}
+        onHide={() => setShowLogin(false)}
+      >
+        <Login />
+      </CustomModal>
     </>
   );
 }
 
 const style = {
   style_h1: {
-    //position: "absolute",
     marginBottom: 50,
-    // width: 572,
-    // height: 182,
-    // left: 78,
-    // top: 235,
     fontFamily: "Times New Roman",
     fontStyle: "normal",
     fontWeight: "bold",
@@ -124,12 +106,7 @@ const style = {
     color: "#000000",
   },
   style_sub: {
-    //position: "absolute",
     marginBottom: 25,
-    // width: 500,
-    // height: 107,
-    // left: 78,
-    // top: 483,
     maxWidth: 500,
     fontFamily: "Poppins",
     textAlign: "left",
