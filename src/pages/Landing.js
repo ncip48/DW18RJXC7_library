@@ -3,51 +3,6 @@ import { CustomButton, CustomJumbotron, CustomModal } from "../components";
 import Login from "./Login";
 import Register from "./Register";
 
-const style = {
-  style_h1: {
-    position: "absolute",
-    margin: 0,
-    width: 572,
-    height: 182,
-    left: 78,
-    top: 235,
-    fontFamily: "Times New Roman",
-    fontStyle: "italic",
-    fontWeight: "bold",
-    fontSize: 110,
-    lineHeight: "82.49%",
-    textAlign: "left",
-    color: "#000000",
-  },
-  style_sub: {
-    position: "absolute",
-    margin: 0,
-    width: 500,
-    height: 107,
-    left: 78,
-    top: 483,
-    fontFamily: "Poppins",
-    textAlign: "left",
-    fontStyle: "normal",
-    fontWeight: "normal",
-    fontSize: 24,
-    lineHeight: "33px",
-  },
-  style_img: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    height: "100vh",
-  },
-  style_icon: {
-    position: "absolute",
-    width: 175,
-    height: 50,
-    left: 78,
-    top: 37,
-  },
-};
-
 console.log(localStorage.getItem("user"));
 
 function Landing() {
@@ -55,12 +10,14 @@ function Landing() {
   const [showRegister, setShowRegister] = useState();
   function show_modal_login() {
     setShowLogin(true);
+    setShowRegister(false);
   }
   function close_modal_login() {
     setShowLogin(false);
   }
   function show_modal_reg() {
     setShowRegister(true);
+    setShowLogin(false);
   }
   function close_modal_reg() {
     setShowRegister(false);
@@ -68,7 +25,7 @@ function Landing() {
   return (
     <CustomJumbotron bgcolor="#ffffff">
       <img alt="icon" style={style.style_icon} src={require("../assets/img/Icon.png")} />
-      <h1 style={style.style_h1}>Your library anywhere</h1>
+      <h1 style={style.style_h1}><i>Your</i> library anywhere</h1>
       <div style={style.style_sub}>
         Sign-up today and receive unlimited accesss to all of your reading -
         share your book.
@@ -135,5 +92,50 @@ function Landing() {
     </CustomJumbotron>
   );
 }
+
+const style = {
+  style_h1: {
+    position: "absolute",
+    margin: 0,
+    width: 572,
+    height: 182,
+    left: 78,
+    top: 235,
+    fontFamily: "Times New Roman",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: 110,
+    lineHeight: "82.49%",
+    textAlign: "left",
+    color: "#000000",
+  },
+  style_sub: {
+    position: "absolute",
+    margin: 0,
+    width: 500,
+    height: 107,
+    left: 78,
+    top: 483,
+    fontFamily: "Poppins",
+    textAlign: "left",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: 24,
+    lineHeight: "33px",
+  },
+  style_img: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    height: "100vh",
+  },
+  style_icon: {
+    position: "absolute",
+    width: 175,
+    height: 50,
+    left: 78,
+    top: 37,
+  },
+};
 
 export default Landing;

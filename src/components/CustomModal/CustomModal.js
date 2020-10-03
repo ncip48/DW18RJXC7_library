@@ -20,7 +20,7 @@ export const CustomModal = ({
     MozTransition: "all .7s ease",
     display: show ? "block" : "none",
     zIndex: "1",
-    position:'absolute',
+    position:'fixed',
     top:0
   };
 
@@ -42,7 +42,8 @@ export const CustomModal = ({
     borderColor: "transparent",
     float: "right",
     margin: 10,
-    outline: 'none'
+    outline: 'none',
+    fontFamily:'Poppins'
   };
 
   const style_judul = {

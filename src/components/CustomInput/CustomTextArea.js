@@ -1,19 +1,21 @@
 import React from 'react';
 
-export const CustomTextArea = ({onChange, bgcolor, width, placeholder, value, borderColor, type, name, style, required}) => {
+export const CustomTextArea = ({onChange, bgcolor, width, height, placeholder, value, borderColor, type, name, style, required}) => {
     
     const styles = {
         width:width,
-        height:50,
+        //height:50,
         fontSize:15,
         fontFamily: 'Poppins',
-        //paddingLeft:10,
+        paddingLeft:10,
         borderRadius:5,
         backgroundColor: bgcolor,
         borderColor:borderColor,
-        borderStyle:'none',
+        borderStyle:'solid',
         outline: 'none',
+        borderWidth:2,
         lineHeight:'50px',
+        height:height == null ? 50 : height
     }
 
     return (

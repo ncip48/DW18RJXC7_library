@@ -11,6 +11,7 @@ export const CustomButton = ({
   fontfamily,
   fontSize,
   containerStyle,
+  type,
 }) => {
   const style = {
     color: color,
@@ -30,7 +31,7 @@ export const CustomButton = ({
 
   return (
     <div style={containerStyle}>
-      <button style={style} onClick={onClick}>
+      <button style={style} onClick={onClick} type={type}>
         {children}
       </button>
     </div>

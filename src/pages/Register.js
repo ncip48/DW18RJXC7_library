@@ -15,69 +15,14 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("male");
 
-  const style = {
-    inputEmail: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 119,
-    },
-    inputPassword: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 189,
-    },
-    style_3: {
-      position: "absolute",
-      width: 298,
-      height: 25,
-      left: 59,
-      top: 625,
-      fontFamily: "Poppins",
-      fontStyle: "normal",
-      fontWeight: "normal",
-      fontSize: 16,
-      lineHeight: "25px",
-    },
-    inputName: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 259,
-    },
-    inputGender: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 329,
-    },
-    inputPhone: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 399,
-    },
-    inputAddress: {
-      position: "absolute",
-      width: 350,
-      height: 50,
-      left: 33,
-      top: 469,
-    },
-  };
-
-  function handleClick() {
+  function handleSubmit(e) {
+    e.preventDefault();
     alert('Email: ' + email + "\nPassword: " + password + "\nFull Name: " + name + "\nGender: " + gender + "\nPhone Number: " + phone  + "\nAddress: " + address);
   }
 
   return (
     <div>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <CustomTextInput
         width={350}
         borderColor="#BCBCBC"
@@ -85,7 +30,7 @@ function Register() {
         type="email"
         style={style.inputEmail}
         placeholder="Email"
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         value={email}
         onChange={(e) => {
@@ -98,7 +43,7 @@ function Register() {
         name="password"
         type="password"
         style={style.inputPassword}
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         placeholder="Password"
         value={password}
@@ -112,7 +57,7 @@ function Register() {
         name="fullname"
         type="text"
         style={style.inputName}
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         placeholder="Full Name"
         value={name}
@@ -125,7 +70,7 @@ function Register() {
         borderColor="#BCBCBC"
         name="gender"
         style={style.inputGender}
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         onChange={(e) => {
           setGender(e.target.value);
@@ -140,7 +85,7 @@ function Register() {
         name="phone"
         type="number"
         style={style.inputPhone}
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         placeholder="Phone Number"
         value={phone}
@@ -153,7 +98,7 @@ function Register() {
         borderColor="#BCBCBC"
         name="address"
         style={style.inputAddress}
-        bgcolor="#D2D2D2"
+        bgcolor="rgb(210,210,210,0.25)"
         required
         placeholder="Address"
         value={address}
@@ -175,13 +120,70 @@ function Register() {
           left: 33,
           top: 555,
         }}
-        onClick={() => handleClick()}
       >
         Sign Up
       </CustomButton>
+      </form>
       <h6 style={style.style_3}>Already have an account ? Klik Here</h6>
     </div>
   );
 }
+
+const style = {
+  inputEmail: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 119,
+  },
+  inputPassword: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 189,
+  },
+  style_3: {
+    position: "absolute",
+    width: 298,
+    height: 25,
+    left: 59,
+    top: 625,
+    fontFamily: "Poppins",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: 16,
+    lineHeight: "25px",
+  },
+  inputName: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 259,
+  },
+  inputGender: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 329,
+  },
+  inputPhone: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 399,
+  },
+  inputAddress: {
+    position: "absolute",
+    width: 350,
+    height: 50,
+    left: 33,
+    top: 469,
+  },
+};
 
 export default Register;

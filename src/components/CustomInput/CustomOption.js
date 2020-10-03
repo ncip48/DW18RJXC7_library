@@ -11,7 +11,8 @@ export const CustomOption = ({onChange, bgcolor, width, placeholder, value, bord
         borderRadius:5,
         backgroundColor: bgcolor,
         borderColor:borderColor,
-        borderStyle:'none',
+        borderStyle:'solid',
+        borderWidth:2,
         outline: 'none'
     }
 

@@ -1,7 +1,6 @@
 import React from "react";
-import { Navbar, Sidebar } from "./components";
 import { Dropdown } from "react-bootstrap";
-//import Sidebar from "./Sidebar";
+import { Navbar, Sidebar } from "./components";
 import { ListBook } from "../components";
 import bookJson from "../assets/book.json";
 
@@ -45,20 +44,20 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
-          <div className="col-md-4 mb-5">
+          <div className="col-md-4 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
           <div className="col-md-8 mb-5">
-            <div className="row mb-3">
+            <div className="mb-3">
               <div
                 className="card w-100 p-5"
                 style={{ backgroundColor: "#E6F2FD" }}
               >
                 <div className="row">
                   <div className="col-md-8 d-flex justify-content-center flex-column">
-                    <h1 style={style.txtJudul}>Share, read and love</h1>
+                    <h1 style={style.txtJudul}>Share, read and <i>love</i></h1>
                     <h2 style={style.txtSub}>Reading is fascinating</h2>
                   </div>
                   <div className="col-md-4 d-flex justify-content-center my-2">
@@ -71,10 +70,10 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className="row justify-content-between">
+            <div className="d-flex justify-content-between">
               <h1 style={style.txtList}>List Books</h1>
               <Dropdown drop="left">
-                <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                <Dropdown.Toggle variant="danger" id="dropdown-basic" style={{backgroundColor:'#EE4622'}}>
                   Category
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -88,6 +87,7 @@ function Home() {
               {bookJson.map((book, index) => {
                 return (
                   <ListBook
+                    isactive
                     key={index}
                     index={book.id}
                     image={book.imageLink}

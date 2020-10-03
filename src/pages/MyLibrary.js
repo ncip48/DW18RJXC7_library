@@ -7,28 +7,27 @@ function MyLibrary() {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
-          <div className="col-md-4 mb-5">
+          <div className="col-md-4 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
           <div className="col-md-8 mb-5">
+            <h1 style={style.txtList} className="mb-4">My Library</h1>
             <div className="row">
-              <h1 style={style.txtList}>My Library</h1>
-            </div>
-            <div className="row">
-              {bookJson.map((book, index) => {
-                return (
-                  <ListBook
-                    key={index}
-                    index={book.id}
-                    image={book.imageLink}
-                    title={book.title}
-                    author={book.author}
-                  />
-                );
-              })}
-            </div>
+            {bookJson.map((book, index) => {
+              return (
+                <ListBook
+                  isactive
+                  key={index}
+                  index={book.id}
+                  image={book.imageLink}
+                  title={book.title}
+                  author={book.author}
+                />
+              );
+            })}
+          </div>
           </div>
         </div>
       </div>

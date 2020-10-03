@@ -9,59 +9,65 @@ function Book() {
   const { id } = useParams();
   const history = useHistory();
   const [show, setShow] = useState(false);
-  const book = bookJson.filter((item) => item.id == id);
+  const book = bookJson.filter((item) => item.id === parseInt(id));
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
-          <div className="col-md-4 mb-5">
+          <div className="col-md-4 mb-5 d-flex justify-content-center">
             <Sidebar />
           </div>
           <div className="col-md-8 mb-5">
-            <div className="card w-100" style={{ borderWidth: 0 }}>
-              <div className="row">
-                <div className="col-md-6 d-flex justify-content-center ">
-                  <img
-                    alt="book"
-                    className="figure-img img-fluid rounded"
-                    src={require(`../assets/img/${book[0].imageLink}`)}
-                    style={{ height: 500, width: 400 }}
-                  />
-                </div>
-                <div className="col-md-6 d-flex flex-column my-2">
-                  <h1 style={style.title}>{book[0].title}</h1>
-                  <h5 style={style.author}>{book[0].author}</h5>
-                  <h6 style={style.sub}>Publication Date</h6>
-                  <p style={style.subsub}>{book[0].year}</p>
-                  <h6 style={style.sub}>Category</h6>
-                  <p style={style.subsub}>{book[0].category}</p>
-                  <h6 style={style.sub}>Pages</h6>
-                  <p style={style.subsub}>{book[0].pages}</p>
-                  <h6 style={{ ...style.sub, color: "#EE4622" }}>ISBN</h6>
-                  <p style={style.subsub}>{book[0].isbn}</p>
+            <div className="mb-3">
+              <div className="card w-100" style={{ borderWidth: 0 }}>
+                <div className="row">
+                  <div className="col-md-6 d-flex justify-content-center flex-column">
+                    <img
+                      alt="book"
+                      className="figure-img img-fluid rounded"
+                      src={require(`../assets/img/${book[0].imageLink}`)}
+                      style={{ height: 500, width: 400 }}
+                    />
+                  </div>
+                  <div className="col-md-6 d-flex justify-content my-2 flex-column justify-content-center">
+                    <h1 style={style.title}>{book[0].title}</h1>
+                    <h5 style={style.author}>{book[0].author}</h5>
+                    <h6 style={style.sub}>Publication Date</h6>
+                    <p style={style.subsub}>{book[0].year}</p>
+                    <h6 style={style.sub}>Category</h6>
+                    <p style={style.subsub}>{book[0].category}</p>
+                    <h6 style={style.sub}>Pages</h6>
+                    <p style={style.subsub}>{book[0].pages}</p>
+                    <h6 style={{ ...style.sub, color: "#EE4622" }}>ISBN</h6>
+                    <p style={style.subsub}>{book[0].isbn}</p>
+                  </div>
                 </div>
               </div>
-              <hr style={style.divider} />
+            </div>
+            <hr style={style.divider} />
+            <div className="d-flex justify-content-between flex-column">
               <h1 style={style.about}>About This Book</h1>
-              <p style={style.pAbout}>{book[0].about}</p>
-              <div className="d-flex justify-content-end">
-                <button
-                  type="button"
-                  className="btn btn-primary mx-2"
-                  style={{ backgroundColor: "#EE4622" }}
-                  onClick={() => setShow(true)}
-                >
-                  Add Library <FaRegBookmark />
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-light"
-                  onClick={() => history.push(`/read/${book[0].id}`)}
-                >
-                  Read Book
-                </button>
-              </div>
+              <p className="text-justify" style={style.pAbout}>
+                {book[0].about}
+              </p>
+            </div>
+            <div className="d-flex justify-content-end">
+              <button
+                type="button"
+                className="btn btn-primary mx-2"
+                style={{ backgroundColor: "#EE4622" }}
+                onClick={() => setShow(true)}
+              >
+                Add Library <FaRegBookmark />
+              </button>
+              <button
+                type="button"
+                className="btn btn-light"
+                onClick={() => history.push(`/read/${book[0].id}`)}
+              >
+                Read Book
+              </button>
             </div>
           </div>
         </div>
@@ -141,7 +147,7 @@ const style = {
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "normal",
-    fontSize: 24,
+    fontSize: 20,
     lineHeight: 33,
     display: "flex",
     alignItems: "center",

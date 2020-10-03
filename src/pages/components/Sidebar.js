@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CustomButton } from "../../components";
-import { FaRegUser, FaRegBookmark } from "react-icons/fa";
-import { BiBookAdd, BiLogOut } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa";
+import { BiBookAdd, BiBookAlt, BiLogOut } from "react-icons/bi";
 import { Link, useHistory } from "react-router-dom";
 
 export const Sidebar = () => {
-  const [email, setEmail] = useState("");
   const history = useHistory();
-  useEffect(() => {
-    setEmail(JSON.parse(localStorage.getItem("user")).email);
-  }, [email]);
   function logout(){
     localStorage.clear();
     history.push('/')
   }
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ position:'fixed' }}>
       <div style={style.containerPp}>
         <img alt="pp" src={require("../../assets/img/pp.png")} style={style.pp} />
       </div>
-      <div style={style.name}>{email}</div>
+      <div style={style.name}>Herly Chahya</div>
       <hr style={style.divider} />
       <Link to="/profile">
         <CustomButton
           width={270}
           height={74}
           rounded
-          bgcolor="white"
-          color="#929292"
+          bgcolor={window.location.pathname === '/profile' ? "#EE4622" : "white"}
+          color={window.location.pathname === '/profile' ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnProfile}
         >
@@ -44,7 +40,7 @@ export const Sidebar = () => {
           fontSize={22}
           containerStyle={style.btnMyLibrary}
         >
-          <FaRegBookmark /> My Library
+          <BiBookAlt /> My Library
         </CustomButton>
       </Link>
       <Link to="/add-book">
@@ -52,8 +48,8 @@ export const Sidebar = () => {
           width={270}
           height={74}
           rounded
-          bgcolor="white"
-          color="#929292"
+          bgcolor={window.location.pathname === '/add-book' ? "#EE4622" : "white"}
+          color={window.location.pathname === '/add-book' ? "white" : "#929292"}
           fontSize={22}
           containerStyle={style.btnAddBook}
         >

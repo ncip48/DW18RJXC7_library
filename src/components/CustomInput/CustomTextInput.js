@@ -7,11 +7,12 @@ export const CustomTextInput = ({onChange, bgcolor, width, placeholder, value, b
         height:50,
         fontSize:15,
         fontFamily: 'Poppins',
-        //paddingLeft:10,
+        paddingLeft:10,
         borderRadius:5,
         backgroundColor: bgcolor,
+        borderWidth:2,
         borderColor:borderColor,
-        borderStyle:'none',
+        borderStyle:'solid',
         outline: 'none'
     }
 
