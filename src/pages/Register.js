@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import CustomTextInput from "../components/CustomTextInput";
 
-function Register() {
+function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -106,7 +106,12 @@ function Register() {
           Sign Up
         </button>
       </form>
-      <h6 style={style.style_3}>Already have an account ? Klik Here</h6>
+      <h6 style={style.style_3}>
+        Already have an account ? Klik{" "}
+        <b style={{ cursor: "pointer" }} onClick={props.onClickLogin}>
+          Here
+        </b>
+      </h6>
     </div>
   );
 }

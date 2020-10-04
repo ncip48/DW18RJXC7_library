@@ -18,7 +18,10 @@ export const Navbar = () => {
   }
 
   return pathname === "" ? (
-    <nav className="navbar navbar-light" style={{ marginLeft: "5rem" }}>
+    <nav
+      className="navbar navbar-light fixed-top"
+      style={{ marginLeft: "5rem" }}
+    >
       <img
         src={require("../assets/img/Icon.png")}
         //width="30"
@@ -29,7 +32,7 @@ export const Navbar = () => {
   ) : (
     <nav
       className={
-        pathname === "read" || pathname === "admin"
+        pathname === "" || pathname === "admin"
           ? "navbar navbar-light"
           : "navbar navbar-light"
       }

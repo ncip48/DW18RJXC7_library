@@ -24,6 +24,8 @@ function Landing() {
   //   setShowRegister(false);
   // }
 
+  console.log(showRegister);
+
   return (
     <>
       <Navbar />
@@ -81,7 +83,13 @@ function Landing() {
         show={showRegister}
         onHide={() => setShowRegister(false)}
       >
-        <Register />
+        <Register
+          showLogin={showLogin}
+          onClickLogin={() => {
+            setShowLogin(true);
+            setShowRegister(false);
+          }}
+        />
       </CustomModal>
       <CustomModal
         title="Login"
@@ -89,7 +97,13 @@ function Landing() {
         show={showLogin}
         onHide={() => setShowLogin(false)}
       >
-        <Login />
+        <Login
+          showRegister={showRegister}
+          onCliCkRegister={() => {
+            setShowRegister(true);
+            setShowLogin(false);
+          }}
+        />
       </CustomModal>
     </>
   );

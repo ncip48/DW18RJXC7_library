@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import CustomTextInput from "../components/CustomTextInput";
 
-function Login() {
+function Login(props) {
   const [state, dispatch] = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,7 +65,12 @@ function Login() {
           Sign In
         </button>
       </form>
-      <h6 style={style.textBottom}>Don't have an account ? Klik Here</h6>
+      <h6 style={style.textBottom}>
+        Don't have an account ? Klik{" "}
+        <b style={{ cursor: "pointer" }} onClick={props.onCliCkRegister}>
+          Here
+        </b>
+      </h6>
     </div>
   );
 }
