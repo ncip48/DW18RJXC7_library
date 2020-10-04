@@ -38,7 +38,7 @@ export const ListBook = ({ index, image, title, author, isactive }) => {
       <img
         alt="books"
         className="figure-img img-fluid rounded"
-        src={require("../../assets/img/" + image)}
+        src={require("../assets/img/" + image)}
         style={{ height: 270, width: 200, opacity: isactive ? 1 : "0.5" }}
       />
       <h4 style={style.bookTitle}>{title}</h4>

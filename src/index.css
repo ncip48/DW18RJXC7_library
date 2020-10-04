@@ -8,6 +8,10 @@ body {
   overflow-y: scroll;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -15,10 +19,48 @@ code {
 
 @media (min-width: 1680px) {
   .container {
-    max-width: 1440px !important;
+    max-width: 1580px !important;
   }
 }
 
 .mt-7 {
   margin-top: 70px;
+}
+::placeholder {
+  color: #333333 !important;
+}
+
+input.form-control,
+textarea.form-control,
+select.form-control {
+  background-color: rgb(210, 210, 210, 0.25) !important;
+  color: #333333 !important;
+  border: 2px solid #bcbcbc;
+}
+
+.btn {
+  font-family: "Poppins" !important;
+}
+
+.btn-round {
+  border-radius: 35px;
+  border-color: transparent;
+  color: #929292;
+  text-align: center;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-round:hover {
+  border-radius: 35px;
+  background-color: #ee4622 !important;
+  text-align: center;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
 }

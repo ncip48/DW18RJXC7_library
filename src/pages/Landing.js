@@ -78,6 +78,7 @@ function Landing() {
       </div>
       <CustomModal
         title="Register"
+        width={416}
         show={showRegister}
         onHide={() => setShowRegister(false)}
       >
@@ -85,6 +86,7 @@ function Landing() {
       </CustomModal>
       <CustomModal
         title="Login"
+        width={416}
         show={showLogin}
         onHide={() => setShowLogin(false)}
       >

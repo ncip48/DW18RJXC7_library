@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  CustomButton,
-  CustomTextArea,
-  CustomSelect,
-  CustomTextInput,
-  CustomOption,
-} from "../components";
+
+import CustomTextInput from "../components/CustomTextInput";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -37,13 +32,10 @@ function Register() {
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <CustomTextInput
-          width={"100%"}
-          borderColor="#BCBCBC"
           name="email"
           type="email"
           style={style.inputEmail}
           placeholder="Email"
-          bgcolor="rgb(210,210,210,0.25)"
           required
           value={email}
           onChange={(e) => {
@@ -51,12 +43,9 @@ function Register() {
           }}
         />
         <CustomTextInput
-          width={"100%"}
-          borderColor="#BCBCBC"
           name="password"
           type="password"
           style={style.inputPassword}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           placeholder="Password"
           value={password}
@@ -65,12 +54,9 @@ function Register() {
           }}
         />
         <CustomTextInput
-          width={"100%"}
-          borderColor="#BCBCBC"
           name="fullname"
           type="text"
           style={style.inputName}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           placeholder="Full Name"
           value={name}
@@ -78,27 +64,22 @@ function Register() {
             setName(e.target.value);
           }}
         />
-        <CustomSelect
-          width={"100%"}
-          borderColor="#BCBCBC"
+        <select
+          className="form-control"
           name="gender"
           style={style.inputGender}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           onChange={(e) => {
             setGender(e.target.value);
           }}
         >
-          <CustomOption value="male">Male</CustomOption>
-          <CustomOption value="female">Female</CustomOption>
-        </CustomSelect>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
         <CustomTextInput
-          width={"100%"}
-          borderColor="#BCBCBC"
           name="phone"
           type="number"
           style={style.inputPhone}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           placeholder="Phone Number"
           value={phone}
@@ -106,12 +87,10 @@ function Register() {
             setPhone(e.target.value);
           }}
         />
-        <CustomTextArea
-          width={"100%"}
-          borderColor="#BCBCBC"
+        <textarea
+          className="form-control"
           name="address"
           style={style.inputAddress}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           placeholder="Address"
           value={address}
@@ -119,23 +98,13 @@ function Register() {
             setAddress(e.target.value);
           }}
         />
-        <CustomButton
-          width={"100%"}
-          height={50}
-          bgcolor="#EE4622"
-          color="#ffffff"
-          fontfamily="Poppins"
-          fontSize={16}
-          containerStyle={{
-            //position: "absolute",
-            width: "100%",
-            //height: 50,
-            //left: 33,
-            //top: 555,
-          }}
+        <button
+          type="submit"
+          className="btn btn-danger btn-block"
+          style={{ marginBottom: 20, backgroundColor: "#EE4622" }}
         >
           Sign Up
-        </CustomButton>
+        </button>
       </form>
       <h6 style={style.style_3}>Already have an account ? Klik Here</h6>
     </div>
@@ -144,65 +113,31 @@ function Register() {
 
 const style = {
   inputEmail: {
-    //position: "absolute",
-    width: "100%",
     marginTop: 20,
     marginBottom: 20,
-    // height: 50,
-    // left: 33,
-    // top: 119,
   },
   inputPassword: {
-    //position: "absolute",
-    width: "100%",
     marginBottom: 20,
-    // height: 50,
-    // left: 33,
-    // top: 189,
   },
   style_3: {
-    // position: "absolute",
-    width: 298,
-    // height: 25,
-    // left: 59,
-    // top: 625,
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: 16,
     lineHeight: "25px",
+    textAlign: "center",
   },
   inputName: {
-    //position: "absolute",
-    width: "100%",
     marginBottom: 20,
-    //height: 50,
-    //left: 33,
-    //top: 259,
   },
   inputGender: {
-    //position: "absolute",
-    width: "100%",
     marginBottom: 20,
-    //height: 50,
-    //left: 33,
-    //top: 329,
   },
   inputPhone: {
-    //position: "absolute",
-    width: "100%",
     marginBottom: 20,
-    //height: 50,
-    //left: 33,
-    //top: 399,
   },
   inputAddress: {
-    //position: "absolute",
-    width: "100%",
     marginBottom: 20,
-    //height: 50,
-    //left: 33,
-    //top: 469,
   },
 };
 

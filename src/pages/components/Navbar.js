@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
   const pathname = window.location.pathname.split("/")[1];
   return pathname === "" ? (
-    <nav
-      className="navbar navbar-light fixed-top"
-      style={{ marginLeft: "5rem" }}
-    >
+    <nav className="navbar navbar-light" style={{ marginLeft: "5rem" }}>
       <img
         src={require("../../assets/img/Icon.png")}
         //width="30"
@@ -20,7 +17,7 @@ export const Navbar = () => {
       className={
         pathname === "read" || pathname === "admin"
           ? "navbar navbar-light"
-          : "fixed-top navbar navbar-light"
+          : "navbar navbar-light"
       }
     >
       <div className="container">

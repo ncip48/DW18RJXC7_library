@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { CustomButton, CustomTextInput } from "../components";
 import { UserContext } from "../context/userContext";
+import CustomTextInput from "../components/CustomTextInput";
 
 function Login() {
-  const [dispatch] = useContext(UserContext);
+  const [state, dispatch] = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  console.log(state);
   function handleSubmit(e) {
     e.preventDefault();
     // localStorage.setItem(
@@ -35,13 +36,10 @@ function Login() {
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <CustomTextInput
-          width={350}
-          borderColor="#BCBCBC"
           name="email"
           type="email"
           style={style.inputEmail}
           placeholder="Email"
-          bgcolor="rgb(210,210,210,0.25)"
           required
           value={email}
           onChange={(e) => {
@@ -49,12 +47,9 @@ function Login() {
           }}
         />
         <CustomTextInput
-          width={350}
-          borderColor="#BCBCBC"
           name="password"
           type="password"
           style={style.inputPassword}
-          bgcolor="rgb(210,210,210,0.25)"
           required
           placeholder="Password"
           value={password}
@@ -62,24 +57,13 @@ function Login() {
             setPassword(e.target.value);
           }}
         />
-        <CustomButton
-          width={350}
-          height={50}
-          bgcolor="#EE4622"
-          color="#ffffff"
+        <button
           type="submit"
-          fontfamily="Poppins"
-          fontSize={16}
-          containerStyle={{
-            position: "absolute",
-            width: 350,
-            height: 50,
-            left: 33,
-            top: 275,
-          }}
+          className="btn btn-danger btn-block"
+          style={{ marginBottom: 20, backgroundColor: "#EE4622" }}
         >
           Sign In
-        </CustomButton>
+        </button>
       </form>
       <h6 style={style.textBottom}>Don't have an account ? Klik Here</h6>
     </div>
@@ -88,31 +72,20 @@ function Login() {
 
 const style = {
   inputEmail: {
-    position: "absolute",
-    width: 350,
-    height: 50,
-    left: 33,
-    top: 119,
+    marginTop: 20,
+    marginBottom: 20,
   },
   inputPassword: {
-    position: "absolute",
-    width: 350,
-    height: 50,
-    left: 33,
-    top: 189,
+    marginBottom: 20,
   },
   textBottom: {
-    position: "absolute",
-    width: 276,
-    height: 25,
-    left: 65,
-    top: 355,
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: 16,
     lineHeight: "25px",
     margin: 0,
+    textAlign: "center",
   },
 };
 

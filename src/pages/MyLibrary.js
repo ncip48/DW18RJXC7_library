@@ -1,15 +1,15 @@
 import React from "react";
 import { Navbar, Sidebar } from "./components";
-import { ListBook } from "../components";
+import { ListBook } from "../components/ListBook";
 import bookJson from "../assets/book.json";
 
 function MyLibrary() {
   return (
     <>
       <Navbar />
-      <div className="container mt-7">
+      <div className="container mt-3">
         <div className="row">
-          <div className="col-md-3 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex flex-column">
             <Sidebar />
           </div>
           <div className="col-md-9 mb-5">

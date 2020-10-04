@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 const CustomModal = (props) => {
   return (
@@ -9,7 +9,7 @@ const CustomModal = (props) => {
       centered
       style={{
         padding: 0,
-        width: 416,
+        width: props.width,
         left: "50%",
         top: "50%",
         transform: "translate(-50%, -50%)",

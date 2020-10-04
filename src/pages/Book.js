@@ -3,7 +3,7 @@ import { FaRegBookmark } from "react-icons/fa";
 import { useParams, useHistory } from "react-router-dom";
 import bookJson from "../assets/book.json";
 import { Navbar, Sidebar } from "./components";
-import { CustomModal } from "../components";
+import CustomModal from "../components/CustomModal";
 
 function Book() {
   const { id } = useParams();
@@ -13,24 +13,24 @@ function Book() {
   return (
     <>
       <Navbar />
-      <div className="container mt-7">
+      <div className="container mt-3">
         <div className="row">
-          <div className="col-md-3 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex flex-column">
             <Sidebar />
           </div>
           <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div className="card w-100" style={{ borderWidth: 0 }}>
                 <div className="row">
-                  <div className="col-md-5 d-flex justify-content-center flex-column">
+                  <div className="col-md-4 d-flex justify-content-center flex-column">
                     <img
                       alt="book"
                       className="figure-img img-fluid rounded"
                       src={require(`../assets/img/${book[0].imageLink}`)}
-                      style={{ height: 540, width: 400 }}
+                      style={{ height: 500, width: 400 }}
                     />
                   </div>
-                  <div className="col-md-7 d-flex justify-content my-2 flex-column justify-content-center">
+                  <div className="col-md-8 d-flex justify-content flex-column justify-content-between">
                     <h1 style={style.title}>{book[0].title}</h1>
                     <h5 style={style.author}>{book[0].author}</h5>
                     <h6 style={style.sub}>Publication Date</h6>
@@ -40,7 +40,9 @@ function Book() {
                     <h6 style={style.sub}>Pages</h6>
                     <p style={style.subsub}>{book[0].pages}</p>
                     <h6 style={{ ...style.sub, color: "#EE4622" }}>ISBN</h6>
-                    <p style={style.subsub}>{book[0].isbn}</p>
+                    <p style={{ ...style.subsub, marginBottom: 0 }}>
+                      {book[0].isbn}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -72,14 +74,7 @@ function Book() {
           </div>
         </div>
       </div>
-      <CustomModal
-        height={84}
-        width={668}
-        bgcolor="#E6F2FD"
-        show={show}
-        name=""
-        close={() => setShow(false)}
-      >
+      <CustomModal show={show} onHide={() => setShow(false)}>
         <h5 style={style.popup}>Your book has been added successfully</h5>
       </CustomModal>
     </>
@@ -139,18 +134,18 @@ const style = {
     marginTop: 10,
   },
   popup: {
-    position: "absolute",
+    //position: "absolute",
     //width: 422,
-    height: 33,
-    left: 123,
-    top: 26,
+    //height: 33,
+    //left: 123,
+    //top: 26,
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: 20,
-    lineHeight: 33,
-    display: "flex",
-    alignItems: "center",
+    //lineHeight: 33,
+    //display: "flex",
+    //alignItems: "center",
     textAlign: "center",
     color: "#469F74",
   },

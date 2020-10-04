@@ -1,68 +1,32 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Navbar, Sidebar } from "./components";
-import { ListBook } from "../components";
+import { ListBook } from "../components/ListBook";
 import bookJson from "../assets/book.json";
 
 function Home() {
-  // return (
-  //   <div style={style.container}>
-  //     <div style={style.row}>
-  //       <div>
-  //         <Sidebar />
-  //       </div>
-  //       <div>
-  //         <div style={style.kotak}>
-  //           <div style={style.containerTeks}>
-  //             <h2 style={style.txtJudul}>Share, read and love</h2>
-  //             <h3 style={style.txtSub}>Reading is fascinating</h3>
-  //           </div>
-  //           <div style={style.containerImg}>
-  //             <img alt="book" src={require("../assets/img/book1.png")} />
-  //           </div>
-  //         </div>
-  //         <div>
-  //           <h1 style={style.txtList}>List Books</h1>
-  //           <div style={style.row2}>
-  //             {bookJson.map((book, index) => {
-  //               return (
-  //                 <ListBook
-  //                   key={index}
-  //                   index={index}
-  //                   image={book.imageLink}
-  //                   title={book.title}
-  //                   author={book.author}
-  //                 />
-  //               );
-  //             })}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   return (
     <>
       <Navbar />
-      <div className="container mt-7">
+      <div className="container mt-3">
         <div className="row">
-          <div className="col-md-3 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex flex-column">
             <Sidebar />
           </div>
           <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div
-                className="card w-100 p-5"
+                className="card w-100 p-4"
                 style={{ backgroundColor: "#E6F2FD" }}
               >
                 <div className="row">
-                  <div className="col-md-9 d-flex justify-content-center flex-column">
+                  <div className="col-md-8 d-flex justify-content-center flex-column">
                     <h1 style={style.txtJudul}>
                       Share, read and <i>love</i>
                     </h1>
                     <h2 style={style.txtSub}>Reading is fascinating</h2>
                   </div>
-                  <div className="col-md-3 d-flex justify-content-center my-2">
+                  <div className="col-md-4 d-flex justify-content-center my-2">
                     <img
                       alt="book"
                       className="figure-img img-fluid rounded"
@@ -111,44 +75,6 @@ function Home() {
 }
 
 const style = {
-  // container: {
-  //   alignItems: "center",
-  //   justifyContent: "space-between",
-  //   paddingRight: 35,
-  //   //paddingLeft: 35,
-  //   marginRight: "auto",
-  //   marginLeft: "auto",
-  // },
-  // row: {
-  //   display: "grid",
-  //   gridTemplateColumns: "30% 70%",
-  // },
-  // row2: {
-  //   display: "grid",
-  //   gridTemplateColumns: "25% 25% 25% 25%",
-  // },
-  // kotak: {
-  //   display: "grid",
-  //   gridTemplateColumns: "60% 40%",
-  //   border: "4px solid #E6F2FD",
-  //   boxSizing: "border-box",
-  //   backgroundColor: "#E6F2FD",
-  //   width: "100%",
-  //   height: 420,
-  //   marginTop: 50,
-  //   borderRadius: 10,
-  // },
-  // containerTeks: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "center",
-  //   padding: 50,
-  // },
-  // containerImg: {
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
   txtJudul: {
     fontFamily: "Times New Roman",
     fontStyle: "normal",
@@ -156,6 +82,8 @@ const style = {
     fontSize: 70,
     lineHeight: "101.5%",
     marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
   },
   txtSub: {
     fontFamily: "Poppins",
@@ -163,6 +91,7 @@ const style = {
     fontWeight: "normal",
     fontSize: 24,
     lineHeight: "101.5%",
+    marginLeft: 30,
   },
   txtList: {
     fontFamily: "Times New Roman",

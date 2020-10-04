@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Sidebar } from "./components";
-import { CustomButton, ListBook } from "../components";
+import { ListBook } from "../components/ListBook";
 import {
   FaEnvelope,
   FaMapMarkerAlt,
@@ -28,23 +28,23 @@ function Profile() {
   return (
     <>
       <Navbar />
-      <div className="container mt-7">
+      <div className="container mt-3">
         <div className="row">
-          <div className="col-md-3 mb-5 d-flex justify-content-center">
+          <div className="col-md-3 mb-5 d-flex flex-column">
             <Sidebar />
           </div>
           <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div
-                className="card w-100"
+                className="card w-100 p-3"
                 style={{ backgroundColor: "#FDEDE6" }}
               >
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md-9 d-flex justify-content-between flex-column">
+                    <div className="col-md-8 d-flex justify-content-around flex-column">
                       <div className="d-flex flex-row align-items-center">
                         <FaEnvelope
-                          style={{ marginRight: 10 }}
+                          style={{ marginRight: 15 }}
                           size={30}
                           color="#8A8C90"
                         />
@@ -55,7 +55,7 @@ function Profile() {
                       </div>
                       <div className="d-flex flex-row align-items-center">
                         <FaTransgender
-                          style={{ marginRight: 10 }}
+                          style={{ marginRight: 15 }}
                           size={30}
                           color="#8A8C90"
                         />
@@ -66,7 +66,7 @@ function Profile() {
                       </div>
                       <div className="d-flex flex-row align-items-center">
                         <FaPhoneAlt
-                          style={{ marginRight: 10 }}
+                          style={{ marginRight: 15 }}
                           size={30}
                           color="#8A8C90"
                         />
@@ -77,7 +77,7 @@ function Profile() {
                       </div>
                       <div className="d-flex flex-row align-items-center">
                         <FaMapMarkerAlt
-                          style={{ marginRight: 10 }}
+                          style={{ marginRight: 15 }}
                           size={30}
                           color="#8A8C90"
                         />
@@ -87,21 +87,21 @@ function Profile() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-3 d-flex my-2 flex-column justify-content-center align-items-center">
+                    <div className="col-md-4 d-flex my-2 flex-column justify-content-center align-items-center">
                       <img
                         alt="book"
                         className="figure-img img-fluid rounded"
                         src={require("../assets/img/pp1.png")}
-                        style={{ height: 202, width: 226 }}
+                        style={{ height: "100%", width: "100%" }}
                       />
-                      <CustomButton
+                      <button
+                        className="btn btn-danger btn-block"
+                        style={{ height: 50, backgroundColor: "#EE4622" }}
                         height={50}
                         width={"100%"}
-                        color="white"
-                        bgcolor="#EE4622"
                       >
                         Change Photo Profile
-                      </CustomButton>
+                      </button>
                     </div>
                   </div>
                 </div>
