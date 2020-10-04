@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaRegBookmark } from "react-icons/fa";
 import { useParams, useHistory } from "react-router-dom";
 import bookJson from "../assets/book.json";
-import { Navbar, Sidebar } from "./components";
+import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
 import CustomModal from "../components/CustomModal";
 
 function Book() {

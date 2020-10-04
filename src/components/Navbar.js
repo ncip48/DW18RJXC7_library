@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Dropdown, Button } from "react-bootstrap";
 import { BiBookAdd, BiLogOut } from "react-icons/bi";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../context/userContext";
 
 export const Navbar = () => {
   const pathname = window.location.pathname.split("/")[1];
@@ -20,7 +20,7 @@ export const Navbar = () => {
   return pathname === "" ? (
     <nav className="navbar navbar-light" style={{ marginLeft: "5rem" }}>
       <img
-        src={require("../../assets/img/Icon.png")}
+        src={require("../assets/img/Icon.png")}
         //width="30"
         //height="30"
         alt=""
@@ -44,7 +44,7 @@ export const Navbar = () => {
         >
           <Link to={pathname === "admin" ? "/admin" : "/dashboard"}>
             <img
-              src={require("../../assets/img/Icon.png")}
+              src={require("../assets/img/Icon.png")}
               //width="30"
               //height="30"
               alt=""
@@ -63,7 +63,7 @@ export const Navbar = () => {
                 }}
               >
                 <img
-                  src={require("../../assets/img/pp.png")}
+                  src={require("../assets/img/pp.png")}
                   style={{
                     height: 50,
                     width: 50,

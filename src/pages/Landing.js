@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-//import { CustomButton, CustomJumbotron, CustomModal } from "../components";
-import { Navbar } from "./components";
+import { Navbar } from "../components/Navbar";
 import Login from "./Login";
 import Register from "./Register";
 import CustomModal from "../components/CustomModal";

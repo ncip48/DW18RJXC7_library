@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Navbar, Sidebar } from "./components";
+import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
 import { CgAttachment } from "react-icons/cg";
 import CustomModal from "../components/CustomModal";
 import CustomTextInput from "../components/CustomTextInput";

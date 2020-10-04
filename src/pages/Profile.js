@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Sidebar } from "./components";
+import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
 import {
   FaEnvelope,
@@ -36,12 +37,12 @@ function Profile() {
           <div className="col-md-9 mb-5">
             <div className="mb-3">
               <div
-                className="card w-100 p-3"
+                className="card w-100 p-1"
                 style={{ backgroundColor: "#FDEDE6" }}
               >
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md-8 d-flex justify-content-around flex-column">
+                    <div className="col-md-9 d-flex justify-content-around flex-column">
                       <div className="d-flex flex-row align-items-center">
                         <FaEnvelope
                           style={{ marginRight: 15 }}
@@ -87,15 +88,15 @@ function Profile() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4 d-flex my-2 flex-column justify-content-center align-items-center">
+                    <div className="col-md-3 d-flex my-2 flex-column justify-content-center align-items-center">
                       <img
                         alt="book"
                         className="figure-img img-fluid rounded"
                         src={require("../assets/img/pp1.png")}
-                        style={{ height: "100%", width: "100%" }}
+                        style={{ height: 200, width: 200 }}
                       />
                       <button
-                        className="btn btn-danger btn-block"
+                        className="btn btn-danger"
                         style={{ height: 50, backgroundColor: "#EE4622" }}
                         height={50}
                         width={"100%"}

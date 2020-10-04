@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { BiBookAdd, BiBookAlt, BiLogOut } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../context/userContext";
 
 export const Sidebar = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -21,7 +21,7 @@ export const Sidebar = () => {
       <img
         className="rounded mx-auto d-block"
         alt="pp"
-        src={require("../../assets/img/pp.png")}
+        src={require("../assets/img/pp.png")}
         style={{ width: 100, height: 100 }}
       />
       <h4 style={style.name}>Herly Chahya</h4>

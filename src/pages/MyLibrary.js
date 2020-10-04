@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Sidebar } from "./components";
+import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
 import bookJson from "../assets/book.json";
 
