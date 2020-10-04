@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar } from "../components";
 import bookJson from "../../assets/book.json";
+import { HiCheckCircle } from "react-icons/hi";
 
 function HomeAdmin() {
   return (
@@ -45,7 +46,23 @@ function HomeAdmin() {
                       ? "Cancel"
                       : "Waiting to be verified"}
                   </td>
-                  <td>CC</td>
+                  <td>
+                    {item.status === 1 ? (
+                      <HiCheckCircle size={40} color="#3BB54A" />
+                    ) : (
+                      <>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          style={{ marginRight: 10 }}
+                        >
+                          Cancel
+                        </button>
+                        <button className="btn btn-success btn-sm">
+                          Approve
+                        </button>
+                      </>
+                    )}
+                  </td>
                 </tr>
               );
             })}

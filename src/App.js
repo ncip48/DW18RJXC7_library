@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Read from "./pages/Read";
 import AddBook from "./pages/AddBook";
 import HomeAdmin from "./pages/admin/HomeAdmin";
+import AddBookAdmin from "./pages/admin/AddBook";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <PrivateRoute path="/add-book" component={AddBook} />
           <PrivateRoute path="/book/:id" component={Book} />
           <PrivateRoute path="/read/:id" component={Read} />
+          <PrivateRoute path="/admin/add-book" component={AddBookAdmin} />
           <PrivateRoute path="/admin" component={HomeAdmin} />
           <Route exact path="/" component={Landing} />
         </Switch>
