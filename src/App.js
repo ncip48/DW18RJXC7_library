@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { UserContextProvider } from "./context/userContext";
+import { Sidebar } from "./components/Sidebar";
 import PrivateRoute from "./components/PrivateRoute";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";

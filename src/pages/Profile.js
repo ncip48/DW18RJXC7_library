@@ -18,13 +18,13 @@ function Profile() {
       accepted: true,
       imageLink: "crypto1.jpg",
     },
-    // {
-    //   id: 12,
-    //   author: "Herly Chahya",
-    //   title: "Java EE 8 Microservices",
-    //   accepted: false,
-    //   imageLink: "eth1.png",
-    // },
+    {
+      id: 12,
+      author: "Herly Chahya",
+      title: "Java EE 8 Microservices",
+      accepted: false,
+      imageLink: "eth1.png",
+    },
   ];
   return (
     <>
@@ -96,8 +96,12 @@ function Profile() {
                         style={{ height: 200, width: 200 }}
                       />
                       <button
-                        className="btn btn-danger"
-                        style={{ height: 50, backgroundColor: "#EE4622" }}
+                        className="btn btn-no"
+                        style={{
+                          height: 50,
+                          backgroundColor: "#EE4622",
+                          color: "#ffffff",
+                        }}
                         height={50}
                         width={"100%"}
                       >

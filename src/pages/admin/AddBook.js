@@ -148,10 +148,7 @@ function AddBookAdmin() {
         </form>
       </div>
       <CustomModal show={show} onHide={() => setShow(false)}>
-        <h5 style={style.popup}>
-          Thank you for adding your own books to our website, please wait 1 x 24
-          hours to verify whether this book is your writing
-        </h5>
+        <h5 style={style.popup}>Book has been added successfully</h5>
       </CustomModal>
     </>
   );

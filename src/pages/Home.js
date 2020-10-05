@@ -43,7 +43,12 @@ function Home() {
                 <Dropdown.Toggle
                   variant="danger"
                   id="dropdown-basic"
-                  style={{ backgroundColor: "#EE4622" }}
+                  style={{
+                    backgroundColor: "rgb(233,233,233,0.7)",
+                    color: "#000000",
+                    outline: "none",
+                    border: 0,
+                  }}
                 >
                   Category
                 </Dropdown.Toggle>
@@ -54,7 +59,7 @@ function Home() {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <div className="row justify-content-between">
+            <div className="row justify-content-start">
               {bookJson.map((book, index) => {
                 return (
                   <ListBook

@@ -85,7 +85,8 @@ const style = {
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "900",
-    marginTop: 10,
+    marginTop: 15,
+    marginBottom: 30,
   },
   divider: {
     width: "100%",

@@ -54,8 +54,12 @@ function Landing() {
             <div className="row">
               <div className="col-4">
                 <button
-                  className="btn btn-danger btn-block"
-                  style={{ height: 50, backgroundColor: "#EE4622" }}
+                  className="btn btn-no btn-block"
+                  style={{
+                    height: 50,
+                    backgroundColor: "#EE4622",
+                    color: "#ffffff",
+                  }}
                   onClick={() => setShowRegister(true)}
                 >
                   Sign Up
@@ -63,7 +67,7 @@ function Landing() {
               </div>
               <div className="col-4">
                 <button
-                  className="btn btn-block"
+                  className="btn btn-no btn-block"
                   style={{
                     height: 50,
                     backgroundColor: "#E9E9E9",

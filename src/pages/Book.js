@@ -66,7 +66,10 @@ function Book() {
               </button>
               <button
                 type="button"
-                className="btn btn-light"
+                className="btn btn-no"
+                style={{
+                  backgroundColor: "#E9E9E9",
+                }}
                 onClick={() => history.push(`/read/${book[0].id}`)}
               >
                 Read Book

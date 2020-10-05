@@ -32,7 +32,7 @@ export const ListBook = ({ index, image, title, author, isactive }) => {
       style={{
         cursor: isactive ? "pointer" : "default",
         backgroundColor: isactive ? "white" : "rgb(196,196,196,0.7)",
-        //maxWidth: 230,
+        maxWidth: 230,
       }}
     >
       <img
