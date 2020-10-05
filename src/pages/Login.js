@@ -9,7 +9,6 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  console.log(state);
   function handleSubmit(e) {
     e.preventDefault();
     // localStorage.setItem(
@@ -62,7 +61,7 @@ function Login(props) {
           className="btn btn-danger btn-block"
           style={{ marginBottom: 20, backgroundColor: "#EE4622" }}
         >
-          Sign In
+          {state.isLogin ? "Logging in" : "Log In"}
         </button>
       </form>
       <h6 style={style.textBottom}>

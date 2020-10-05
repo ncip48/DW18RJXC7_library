@@ -115,7 +115,7 @@ function AddBook() {
                   setAbout(e.target.value);
                 }}
               />
-              <div class="form-group">
+              <div className="form-group">
                 <label
                   for="file"
                   style={{
@@ -132,7 +132,7 @@ function AddBook() {
                 </label>
                 <input
                   type="file"
-                  class="form-control-file"
+                  className="form-control-file"
                   id="file"
                   style={{ display: "none" }}
                   required

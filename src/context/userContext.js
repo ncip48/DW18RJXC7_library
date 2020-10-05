@@ -16,7 +16,6 @@ const reducer = (state, action) => {
       };
     case "LOGOUT":
       localStorage.removeItem("isLogin");
-
       return {
         ...state,
         isLogin: false,
@@ -27,6 +26,7 @@ const reducer = (state, action) => {
 };
 
 export const UserContextProvider = (props) => {
+  //const [state, dispatch] = useReducer(reducer, initialState);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

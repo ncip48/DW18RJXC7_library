@@ -4,27 +4,9 @@ import Login from "./Login";
 import Register from "./Register";
 import CustomModal from "../components/CustomModal";
 
-console.log(localStorage.getItem("user"));
-
 function Landing() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  // function show_modal_login() {
-  //   setShowLogin(true);
-  //   setShowRegister(false);
-  // }
-  // function close_modal_login() {
-  //   setShowLogin(false);
-  // }
-  // function show_modal_reg() {
-  //   setShowRegister(true);
-  //   setShowLogin(false);
-  // }
-  // function close_modal_reg() {
-  //   setShowRegister(false);
-  // }
-
-  console.log(showRegister);
 
   return (
     <>

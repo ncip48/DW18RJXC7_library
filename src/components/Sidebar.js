@@ -15,7 +15,6 @@ export const Sidebar = () => {
     history.push("/");
   }
 
-  console.log(state);
   return (
     <>
       <img
@@ -24,6 +23,7 @@ export const Sidebar = () => {
         src={require("../assets/img/pp.png")}
         style={{ width: 100, height: 100 }}
       />
+      {state.isLogin ? null : null}
       <h4 style={style.name}>Herly Chahya</h4>
       <hr style={style.divider} />
       <button
