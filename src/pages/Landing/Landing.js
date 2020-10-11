@@ -18,19 +18,14 @@ export const Landing = () => {
             <h1>
               <i>Your</i> library anywhere
             </h1>
-            <h5 style={style.style_sub}>
+            <h5>
               Sign-up today and receive unlimited accesss to all of your reading
               - share your book.
             </h5>
             <div className="row">
               <div className="col-6 col-md-4">
                 <button
-                  className="btn btn-no btn-block"
-                  style={{
-                    height: 50,
-                    backgroundColor: "#EE4622",
-                    color: "#ffffff",
-                  }}
+                  className="btn btn-no btn-block btn-sign-up"
                   onClick={() => setShowRegister(true)}
                 >
                   Sign Up
@@ -38,11 +33,7 @@ export const Landing = () => {
               </div>
               <div className="col-6 col-md-4">
                 <button
-                  className="btn btn-no btn-block"
-                  style={{
-                    height: 50,
-                    backgroundColor: "#E9E9E9",
-                  }}
+                  className="btn btn-no btn-block btn-sign-in"
                   onClick={() => setShowLogin(true)}
                 >
                   Sign In
@@ -82,40 +73,4 @@ export const Landing = () => {
       </CustomModal>
     </>
   );
-};
-
-const style = {
-  style_h1: {
-    marginBottom: 50,
-    fontFamily: "Times New Roman",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    fontSize: 110,
-    lineHeight: "82.49%",
-    textAlign: "left",
-    color: "#000000",
-  },
-  style_sub: {
-    marginBottom: 25,
-    maxWidth: 500,
-    fontFamily: "Poppins",
-    textAlign: "left",
-    fontStyle: "normal",
-    fontWeight: "normal",
-    fontSize: 24,
-    lineHeight: "33px",
-  },
-  style_img: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    height: "100vh",
-  },
-  style_icon: {
-    position: "absolute",
-    width: 175,
-    height: 50,
-    left: 78,
-    top: 37,
-  },
 };
