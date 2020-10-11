@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import bookJson from "../assets/book.json";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../components/Navbar/";
 import { ReactReader } from "react-reader";
 
 function Read() {

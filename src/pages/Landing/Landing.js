@@ -1,32 +1,21 @@
 import React, { useState } from "react";
-import { Navbar } from "../components/Navbar";
-import Login from "./Login";
-import Register from "./Register";
-import CustomModal from "../components/CustomModal";
+import { Navbar } from "../../components/Navbar";
+import Login from "../Login";
+import Register from "../Register";
+import CustomModal from "../../components/CustomModal";
+import "./style.css";
 
-function Landing() {
+export const Landing = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   return (
     <>
       <Navbar />
-      <div
-        className="jumbotron m-0 d-flex justify-content-center flex-column"
-        style={{
-          height: "100vh",
-          width: "100%",
-          backgroundColor: "white",
-          position: "fixed",
-          backgroundImage: "url(" + require("../assets/img/bg1.png") + ")",
-          backgroundPosition: "right",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <div className="jumbotron m-0 d-flex justify-content-center flex-column">
         <div className="row">
-          <div className="col-12 col-md-6 ml-5">
-            <h1 style={style.style_h1}>
+          <div className="col-12 col-md-6 jumbotron-inner">
+            <h1>
               <i>Your</i> library anywhere
             </h1>
             <h5 style={style.style_sub}>
@@ -34,7 +23,7 @@ function Landing() {
               - share your book.
             </h5>
             <div className="row">
-              <div className="col-4">
+              <div className="col-6 col-md-4">
                 <button
                   className="btn btn-no btn-block"
                   style={{
@@ -47,7 +36,7 @@ function Landing() {
                   Sign Up
                 </button>
               </div>
-              <div className="col-4">
+              <div className="col-6 col-md-4">
                 <button
                   className="btn btn-no btn-block"
                   style={{
@@ -93,7 +82,7 @@ function Landing() {
       </CustomModal>
     </>
   );
-}
+};
 
 const style = {
   style_h1: {
@@ -130,5 +119,3 @@ const style = {
     top: 37,
   },
 };
-
-export default Landing;

@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Dropdown, Button } from "react-bootstrap";
 import { BiBookAdd, BiLogOut } from "react-icons/bi";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../../context/userContext";
+import "./style.css";
 
 export const Navbar = () => {
   const pathname = window.location.pathname.split("/")[1];
@@ -18,38 +19,23 @@ export const Navbar = () => {
   }
 
   return pathname === "" ? (
-    <nav
-      className="navbar navbar-light fixed-top"
-      style={{ marginLeft: "5rem" }}
-    >
-      <img
-        src={require("../assets/img/Icon.png")}
-        //width="30"
-        //height="30"
-        alt=""
-      />
+    <nav className="navbar navbar-light fixed-top nav-top">
+      <img src={require("../../assets/img/Icon.png")} className="logo" alt="" />
     </nav>
   ) : (
-    <nav
-      className={
-        pathname === "" || pathname === "admin"
-          ? "navbar navbar-light"
-          : "navbar navbar-light"
-      }
-    >
+    <nav className="navbar navbar-light nav-profile">
       <div className="container">
         <div
           className={
             pathname === "admin"
               ? "col-md-3 d-flex w-100"
-              : "col-md-3 d-flex justify-content-center w-100"
+              : "col-md-3 d-flex w-100"
           }
         >
           <Link to={pathname === "admin" ? "/admin" : "/dashboard"}>
             <img
-              src={require("../assets/img/Icon.png")}
-              //width="30"
-              //height="30"
+              src={require("../../assets/img/Icon.png")}
+              className="logo"
               alt=""
             />
           </Link>
@@ -66,7 +52,7 @@ export const Navbar = () => {
                 }}
               >
                 <img
-                  src={require("../assets/img/pp.png")}
+                  src={require("../../assets/img/pp.png")}
                   style={{
                     height: 50,
                     width: 50,

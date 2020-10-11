@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { UserContextProvider } from "./context/userContext";
 import PrivateRoute from "./components/PrivateRoute";
-import Landing from "./pages/Landing";
+import { Landing } from "./pages/Landing/";
 import Home from "./pages/Home";
 import MyLibrary from "./pages/MyLibrary";
 import Book from "./pages/Book";
 import Profile from "./pages/Profile";
 import Read from "./pages/Read";
 import AddBook from "./pages/AddBook";
-import HomeAdmin from "./pages/admin/HomeAdmin";
-import AddBookAdmin from "./pages/admin/AddBook";
+import HomeAdmin from "./pages/Admin/HomeAdmin";
+import AddBookAdmin from "./pages/Admin/AddBook";
 
 function App() {
   return (
