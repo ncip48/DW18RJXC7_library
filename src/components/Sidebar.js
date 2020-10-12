@@ -7,6 +7,7 @@ import { UserContext } from "../context/userContext";
 export const Sidebar = () => {
   const [state, dispatch] = useContext(UserContext);
   const history = useHistory();
+
   function logout() {
     dispatch({
       type: "LOGOUT",
@@ -24,7 +25,7 @@ export const Sidebar = () => {
         style={{ width: 100, height: 100 }}
       />
       {state.isLogin ? null : null}
-      <h4 style={style.name}>Herly Chahya</h4>
+      <h4 style={style.name}>{state.user?.fullName}</h4>
       <hr style={style.divider} />
       <button
         type="button"

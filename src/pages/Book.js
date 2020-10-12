@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { FaRegBookmark } from "react-icons/fa";
 import { useParams, useHistory } from "react-router-dom";
-import bookJson from "../assets/book.json";
+import { API } from "../config/api";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import CustomModal from "../components/CustomModal";
@@ -10,7 +11,10 @@ function Book() {
   const { id } = useParams();
   const history = useHistory();
   const [show, setShow] = useState(false);
-  const book = bookJson.filter((item) => item.id === parseInt(id));
+
+  const { isLoading, error, data: booksData } = useQuery("getBooks", () =>
+    API.get(`/book/${id}`)
+  );
   return (
     <>
       <Navbar />
@@ -20,61 +24,87 @@ function Book() {
             <Sidebar />
           </div>
           <div className="col-md-9 mb-5">
-            <div className="mb-3">
-              <div className="card w-100" style={{ borderWidth: 0 }}>
-                <div className="row">
-                  <div className="col-md-4 d-flex justify-content-center flex-column">
-                    <img
-                      alt="book"
-                      className="figure-img img-fluid rounded"
-                      src={require(`../assets/img/${book[0].imageLink}`)}
-                      style={{ height: 500, width: 400 }}
-                    />
-                  </div>
-                  <div className="col-md-8 d-flex justify-content flex-column justify-content-between">
-                    <h1 style={style.title}>{book[0].title}</h1>
-                    <h5 style={style.author}>{book[0].author}</h5>
-                    <h6 style={style.sub}>Publication Date</h6>
-                    <p style={style.subsub}>{book[0].year}</p>
-                    <h6 style={style.sub}>Category</h6>
-                    <p style={style.subsub}>{book[0].category}</p>
-                    <h6 style={style.sub}>Pages</h6>
-                    <p style={style.subsub}>{book[0].pages}</p>
-                    <h6 style={{ ...style.sub, color: "#EE4622" }}>ISBN</h6>
-                    <p style={{ ...style.subsub, marginBottom: 0 }}>
-                      {book[0].isbn}
-                    </p>
+            {isLoading ? (
+              <h1>Loading</h1>
+            ) : error ? (
+              <h1>Error</h1>
+            ) : (
+              <>
+                <div className="mb-3">
+                  <div className="card w-100" style={{ borderWidth: 0 }}>
+                    <div className="row">
+                      <div className="col-md-4 d-flex justify-content-center flex-column">
+                        <img
+                          alt="book"
+                          className="figure-img img-fluid rounded"
+                          src={require(`../assets/img/${booksData.data.data.books[0].thumbnail}`)}
+                          style={{ height: 500, width: 400 }}
+                        />
+                      </div>
+                      <div className="col-md-8 d-flex justify-content flex-column justify-content-between">
+                        <h1 style={style.title}>
+                          {booksData.data.data.books[0].title}
+                        </h1>
+                        <h5 style={style.author}>
+                          {booksData.data.data.books[0].userId.name}
+                        </h5>
+                        <h6 style={style.sub}>Publication Date</h6>
+                        <p style={style.subsub}>
+                          {booksData.data.data.books[0].publication}
+                        </p>
+                        <h6 style={style.sub}>Category</h6>
+                        <p style={style.subsub}>
+                          {booksData.data.data.books[0].category.name}
+                        </p>
+                        <h6 style={style.sub}>Pages</h6>
+                        <p style={style.subsub}>
+                          {booksData.data.data.books[0].pages}
+                        </p>
+                        <h6 style={{ ...style.sub, color: "#EE4622" }}>ISBN</h6>
+                        <p style={{ ...style.subsub, marginBottom: 0 }}>
+                          {booksData.data.data.books[0].ISBN}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <hr style={style.divider} />
-            <div className="d-flex justify-content-between flex-column">
-              <h1 style={style.about}>About This Book</h1>
-              <p className="text-justify" style={style.pAbout}>
-                {book[0].about}
-              </p>
-            </div>
-            <div className="d-flex justify-content-end">
-              <button
-                type="button"
-                className="btn btn-primary mx-2"
-                style={{ backgroundColor: "#EE4622" }}
-                onClick={() => setShow(true)}
-              >
-                Add Library <FaRegBookmark />
-              </button>
-              <button
-                type="button"
-                className="btn btn-no"
-                style={{
-                  backgroundColor: "#E9E9E9",
-                }}
-                onClick={() => history.push(`/read/${book[0].id}`)}
-              >
-                Read Book
-              </button>
-            </div>
+                <hr style={style.divider} />
+                <div className="d-flex justify-content-between flex-column">
+                  <h1 style={style.about}>About This Book</h1>
+                  <p className="text-justify" style={style.pAbout}>
+                    {booksData.data.data.books[0].aboutBook}
+                  </p>
+                </div>
+                <div className="d-flex justify-content-end">
+                  <button
+                    type="button"
+                    className="btn btn-primary mx-2"
+                    style={{ backgroundColor: "#EE4622" }}
+                    onClick={() => setShow(true)}
+                  >
+                    Add Library <FaRegBookmark />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-no"
+                    style={{
+                      backgroundColor: "#E9E9E9",
+                    }}
+                    onClick={() =>
+                      history.push({
+                        pathname: `/read/${booksData.data.data.books[0].id}`,
+                        state: {
+                          file: booksData.data.data.books[0].file,
+                          title: booksData.data.data.books[0].title,
+                        },
+                      })
+                    }
+                  >
+                    Read Book
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

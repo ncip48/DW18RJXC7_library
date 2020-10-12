@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
+import { UserContext } from "../context/userContext";
 import {
   FaEnvelope,
   FaMapMarkerAlt,
@@ -10,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 function Profile() {
+  const [state] = useContext(UserContext);
   const bookJson = [
     {
       id: 11,
@@ -50,7 +52,7 @@ function Profile() {
                           color="#8A8C90"
                         />
                         <div className="flex-column">
-                          <h6 style={style.sub}>mbahcip00@gmail.com</h6>
+                          <h6 style={style.sub}>{state.user.email}</h6>
                           <p style={style.subsub}>email</p>
                         </div>
                       </div>
@@ -61,7 +63,7 @@ function Profile() {
                           color="#8A8C90"
                         />
                         <div className="flex-column">
-                          <h6 style={style.sub}>Male</h6>
+                          <h6 style={style.sub}>{state.user.gender}</h6>
                           <p style={style.subsub}>Gender</p>
                         </div>
                       </div>
@@ -72,7 +74,7 @@ function Profile() {
                           color="#8A8C90"
                         />
                         <div className="flex-column">
-                          <h6 style={style.sub}>081335241314</h6>
+                          <h6 style={style.sub}>{state.user.phone}</h6>
                           <p style={style.subsub}>Mobile Phone</p>
                         </div>
                       </div>
@@ -83,7 +85,7 @@ function Profile() {
                           color="#8A8C90"
                         />
                         <div className="flex-column">
-                          <h6 style={style.sub}>Jl Trunojoyo utara no 6</h6>
+                          <h6 style={style.sub}>{state.user.address}</h6>
                           <p style={{ ...style.subsub, margin: 0 }}>Address</p>
                         </div>
                       </div>

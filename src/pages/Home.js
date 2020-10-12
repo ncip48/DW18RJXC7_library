@@ -1,11 +1,53 @@
-import React from "react";
-import { Dropdown } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Dropdown, Button } from "react-bootstrap";
+import { useQuery } from "react-query";
+import { API } from "../config/api";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
-import bookJson from "../assets/book.json";
 
-function Home() {
+const Home = () => {
+  // let { isLoading, error, data: booksData } = useQuery("getBooks", () =>
+  //   API.get("/books")
+  // );
+
+  const [books, setBooks] = useState([]);
+  const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getBooks();
+  }, []);
+
+  const getBooks = async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/books");
+      setBooks(res.data.data.books);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  const {
+    isLoading: categoryLoading,
+    error: categoryError,
+    data: categoryData,
+  } = useQuery("getCategory", async () => API.get("/category"));
+
+  const compare = async (id, name) => {
+    setLoading(true);
+    const res = await API.get("/books");
+    const result = res.data.data.books.filter(
+      (item) => item.category.id === parseInt(id)
+    );
+    setBooks(result);
+    setCategory(name);
+    setLoading(false);
+  };
+
   return (
     <>
       <Navbar />
@@ -53,32 +95,55 @@ function Home() {
                   Category
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Horror</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Romatic</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Love</Dropdown.Item>
+                  <Dropdown.Item as={Button} onClick={() => getBooks()}>
+                    All
+                  </Dropdown.Item>
+                  {categoryLoading || !categoryData ? (
+                    <h1>Loading...</h1>
+                  ) : categoryError ? (
+                    <h1>error {categoryError.message} </h1>
+                  ) : (
+                    categoryData.data.data.categories.map((category, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          as={Button}
+                          onClick={() => compare(category.id, category.name)}
+                        >
+                          {category.name}
+                        </Dropdown.Item>
+                      );
+                    })
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </div>
             <div className="row justify-content-start">
-              {bookJson.map((book, index) => {
-                return (
-                  <ListBook
-                    isactive
-                    key={index}
-                    index={book.id}
-                    image={book.imageLink}
-                    title={book.title}
-                    author={book.author}
-                  />
-                );
-              })}
+              {loading ? (
+                <h1>Loading...</h1>
+              ) : books.toString() === "" ? (
+                <h3>No Books Found in category {category}</h3>
+              ) : (
+                books.map((book, index) => {
+                  return (
+                    <ListBook
+                      isactive
+                      key={index}
+                      index={book.id}
+                      image={book.thumbnail}
+                      title={book.title}
+                      author={book.userId.fullName}
+                    />
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 const style = {
   txtJudul: {
