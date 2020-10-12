@@ -55,6 +55,7 @@ function Login(props) {
       }
     } catch (err) {
       console.log(err);
+      setErrorMsg(err.message);
     }
   });
 
