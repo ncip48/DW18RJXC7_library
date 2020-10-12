@@ -66,6 +66,7 @@ function Register(props) {
       }
     } catch (err) {
       console.log(err);
+      setErrorMsg(err.message);
     }
   });
 
