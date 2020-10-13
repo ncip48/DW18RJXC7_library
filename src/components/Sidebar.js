@@ -19,12 +19,15 @@ export const Sidebar = () => {
   return (
     <>
       <img
-        className="rounded mx-auto d-block"
+        className="mx-auto d-block"
         alt="pp"
-        src={require("../assets/img/pp.png")}
-        style={{ width: 100, height: 100 }}
+        src={
+          state.user.photoProfile === null
+            ? require("../assets/img/blank.png")
+            : require(`../assets/img/${state.photoProfile}`)
+        }
+        style={{ width: 100, height: 100, borderRadius: "50%" }}
       />
-      {state.isLogin ? null : null}
       <h4 style={style.name}>{state.user?.fullName}</h4>
       <hr style={style.divider} />
       <button

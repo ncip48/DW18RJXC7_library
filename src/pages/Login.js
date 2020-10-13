@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { UserContext } from "../context/userContext";
@@ -9,22 +11,40 @@ import { API, setAuthToken } from "../config/api";
 function Login(props) {
   const [state, dispatch] = useContext(UserContext);
   const [errorMsg, setErrorMsg] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const history = useHistory();
 
   console.log(state.isLogin);
 
-  const [loginAction, { isLoading, error }] = useMutation(async () => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const body = JSON.stringify({ email, password });
+  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("Harus diisi!")
+        .email("Format email tidak valid!"),
+      password: Yup.string()
+        .required("Harus diisi!")
+        .min(8, "Harus 8 karakter atau lebih!"),
+    }),
+    onSubmit: (values) => {
+      loginAction(values);
+    },
+  });
 
+  const [loginAction, { isLoading, error }] = useMutation(async (values) => {
+    try {
       try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const body = values;
+
         const res = await API.post("/login", body, config);
 
         dispatch({
@@ -70,33 +90,20 @@ function Login(props) {
           <MdErrorOutline size={30} /> {errorMsg || error}
         </div>
       ) : null}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          loginAction();
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <CustomTextInput
           name="email"
           type="email"
-          style={style.inputEmail}
           placeholder="Email"
-          required
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          {...getFieldProps("email")}
+          error={touched.email ? errors.email : ""}
         />
         <CustomTextInput
           name="password"
           type="password"
-          style={style.inputPassword}
-          required
           placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          {...getFieldProps("password")}
+          error={touched.password ? errors.password : ""}
         />
         <button
           type="submit"

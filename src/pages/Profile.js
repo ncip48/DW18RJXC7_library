@@ -3,6 +3,8 @@ import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
 import { UserContext } from "../context/userContext";
+import { useQuery } from "react-query";
+import { API } from "../config/api";
 import {
   FaEnvelope,
   FaMapMarkerAlt,
@@ -12,22 +14,12 @@ import {
 
 function Profile() {
   const [state] = useContext(UserContext);
-  const bookJson = [
-    {
-      id: 11,
-      author: "Herly Chahya",
-      title: "Blockchain with Hyperledger",
-      accepted: true,
-      imageLink: "crypto1.jpg",
-    },
-    {
-      id: 12,
-      author: "Herly Chahya",
-      title: "Java EE 8 Microservices",
-      accepted: false,
-      imageLink: "eth1.png",
-    },
-  ];
+
+  const { isLoading, error, data: booksProfile } = useQuery(
+    "getUserBooks",
+    () => API.get(`/user/${state.user.id}`)
+  );
+
   return (
     <>
       <Navbar />
@@ -94,7 +86,11 @@ function Profile() {
                       <img
                         alt="book"
                         className="figure-img img-fluid rounded"
-                        src={require("../assets/img/pp1.png")}
+                        src={
+                          state.user.photoProfile === null
+                            ? require("../assets/img/blank.png")
+                            : require(`../assets/img/${state.photoProfile}`)
+                        }
                         style={{ height: 200, width: 200 }}
                       />
                       <button
@@ -118,18 +114,22 @@ function Profile() {
               <h1 style={style.txtList}>My Books</h1>
             </div>
             <div className="row">
-              {bookJson.map((book, index) => {
-                return (
-                  <ListBook
-                    isactive={book.accepted}
-                    key={index}
-                    index={book.id}
-                    image={book.imageLink}
-                    title={book.title}
-                    author={book.author}
-                  />
-                );
-              })}
+              {isLoading ? (
+                <h1>Loading...</h1>
+              ) : (
+                booksProfile.data.data.users[0].books.map((book, index) => {
+                  return (
+                    <ListBook
+                      isactive
+                      key={index}
+                      index={book.id}
+                      image={book.thumbnail}
+                      title={book.title}
+                      author={state.user.fullName}
+                    />
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
