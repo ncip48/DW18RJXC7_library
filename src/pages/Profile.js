@@ -116,6 +116,8 @@ function Profile() {
             <div className="row">
               {isLoading ? (
                 <h1>Loading...</h1>
+              ) : error ? (
+                <h3>Error</h3>
               ) : (
                 booksProfile.data.data.users[0].books.map((book, index) => {
                   return (
