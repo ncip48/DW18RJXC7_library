@@ -117,7 +117,7 @@ function AddBook() {
               />
               <div className="form-group">
                 <label
-                  for="file"
+                  htmlFor="file"
                   style={{
                     display: "flex",
                     alignItems: "center",

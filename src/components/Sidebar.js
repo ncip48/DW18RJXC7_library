@@ -3,6 +3,9 @@ import { FaRegUser } from "react-icons/fa";
 import { BiBookAdd, BiBookAlt, BiLogOut } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import { urlAsset } from "../config/api";
+
+//const URI = "http://localhost:5000/src/uploads/img/";
 
 export const Sidebar = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -24,7 +27,7 @@ export const Sidebar = () => {
         src={
           state.user.photoProfile === null
             ? require("../assets/img/blank.png")
-            : require(`../assets/img/${state.photoProfile}`)
+            : urlAsset.img + state.user.photoProfile
         }
         style={{ width: 100, height: 100, borderRadius: "50%" }}
       />

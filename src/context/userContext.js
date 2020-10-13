@@ -26,6 +26,7 @@ const reducer = (state, action) => {
         user: null,
       };
     case "USER_LOADED":
+    case "UPDATE_PP_SUCCESS":
       return {
         ...state,
         isLogin: true,
