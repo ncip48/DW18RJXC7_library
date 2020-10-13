@@ -66,7 +66,9 @@ function Login(props) {
           });
         }
 
-        history.push("/dashboard");
+        res.data.data.role === 1
+          ? history.push("/admin")
+          : history.push("/dashboard");
       } catch (err) {
         dispatch({
           type: "LOGIN_FAILED",

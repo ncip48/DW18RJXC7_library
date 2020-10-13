@@ -188,6 +188,11 @@
   color: #ffffff;
 }
 
+.btn-sign-up:hover {
+  background-color: #ee4622;
+  color: #ffffff;
+}
+
 .btn-sign-in {
   background-color: #e9e9e9;
 }
