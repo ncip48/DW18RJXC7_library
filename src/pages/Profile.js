@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Navbar } from "../components/Navbar/";
-import { useMutation } from "react-query";
+import CustomModal from "../components/CustomModal";
 import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
 import { UserContext } from "../context/userContext";
@@ -12,46 +12,18 @@ import {
   FaPhoneAlt,
   FaTransgender,
 } from "react-icons/fa";
+import { EditPhotoProfile } from "./Profile/EditPhotoProfile";
 
 //const URI = "http://localhost:5000/src/uploads/img/";
 
 function Profile() {
-  const [state, dispatch] = useContext(UserContext);
-  const [file, setFile] = useState("");
+  const [state] = useContext(UserContext);
+  const [showEditPP, setShowEditPP] = useState(false);
 
   const { isLoading, error, data: booksProfile } = useQuery(
     "getUserBooks",
     () => API.get(`/user/${state.user.id}`)
   );
-
-  const [updatePP] = useMutation(async () => {
-    try {
-      try {
-        const config = {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTYwMjU4NDc1Nn0.3d2yS6C1Uajkg-o9U_nMQ-hs7OJxZGtGjXESvu8kxTo",
-            "Content-type": "multipart/form-data",
-          },
-        };
-        const formData = new FormData();
-        formData.append("photoProfile", file);
-        //const body = { photoProfile: values };
-        //console.log(bodyFormData);
-
-        const res = await API.patch("/test_data", formData, config);
-        return res;
-        // dispatch({
-        //   type: "UPLOAD_PP_SUCCESS",
-        //   payload: res.data.data,
-        // });
-      } catch (err) {
-        console.log(err.message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  });
 
   return (
     <>
@@ -122,46 +94,26 @@ function Profile() {
                         src={
                           state.user.photoProfile === null
                             ? require("../assets/img/blank.png")
-                            : urlAsset.img + state.user.photoProfile
+                            : urlAsset.img + state.user?.photoProfile
                         }
                         style={{ height: 200, width: 200 }}
                       />
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          updatePP();
-                        }}
-                      >
-                        <div className="form-group">
-                          <label
-                            htmlFor="file"
-                            className="btn btn-no"
-                            style={{
-                              display: "flex",
-                              height: 50,
-                              backgroundColor: "#EE4622",
-                              color: "#ffffff",
-                              alignItems: "center",
-                            }}
-                          >
-                            Change Photo Picture
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control-file"
-                            id="file"
-                            style={{ display: "none" }}
-                            required
-                            value={file}
-                            onChange={(e) => {
-                              setFile(e.target.files[0].name);
-                              //console.log(e.target.files[0].name);
-                              //updatePP(e.target.files[0].name);
-                            }}
-                          />
-                        </div>
-                        <button type="submit">Submit</button>
-                      </form>
+                      <div className="form-group">
+                        <label
+                          htmlFor="file"
+                          className="btn btn-no"
+                          style={{
+                            display: "flex",
+                            height: 50,
+                            backgroundColor: "#EE4622",
+                            color: "#ffffff",
+                            alignItems: "center",
+                          }}
+                          onClick={() => setShowEditPP(true)}
+                        >
+                          Change Photo Picture
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -175,6 +127,13 @@ function Profile() {
                 <h1>Loading...</h1>
               ) : error ? (
                 <h3>Error</h3>
+              ) : booksProfile.data.data.users[0].books.toString() === "" ? (
+                <div
+                  className="alert alert-warning ml-auto mr-auto w-100 text-center"
+                  role="alert"
+                >
+                  <h3>No Books Found</h3>
+                </div>
               ) : (
                 booksProfile.data.data.users[0].books.map((book, index) => {
                   return (
@@ -193,6 +152,14 @@ function Profile() {
           </div>
         </div>
       </div>
+      <CustomModal
+        title="Edit Photo Profile"
+        width={700}
+        show={showEditPP}
+        onHide={() => setShowEditPP(false)}
+      >
+        <EditPhotoProfile />
+      </CustomModal>
     </>
   );
 }

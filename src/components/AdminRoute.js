@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({ component: Component, ...rest }) => {
   const [state] = useContext(UserContext);
 
   return (
@@ -11,14 +11,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={(props) =>
         state.isLoading ? (
           <h1>Loading</h1>
-        ) : state.isLogin && state.user.role === 0 ? (
+        ) : state.isLogin && state.user.role === 1 ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/" />
+          <Redirect to="/dashboard" />
         )
       }
     />
   );
 };
 
-export default PrivateRoute;
+export default AdminRoute;

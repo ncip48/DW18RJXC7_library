@@ -26,12 +26,16 @@ const reducer = (state, action) => {
         user: null,
       };
     case "USER_LOADED":
-    case "UPDATE_PP_SUCCESS":
       return {
         ...state,
         isLogin: true,
         user: action.payload,
         isLoading: false,
+      };
+    case "UPDATE_PP_SUCCESS":
+      return {
+        ...state,
+        user: action.payload,
       };
     case "AUTH_ERROR":
     case "LOGIN_FAILED":
@@ -48,7 +52,6 @@ const reducer = (state, action) => {
 };
 
 export const UserContextProvider = (props) => {
-  //const [state, dispatch] = useReducer(reducer, initialState);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import { API, setAuthToken } from "./config/api";
 import { UserContext } from "./context/userContext";
 
@@ -35,7 +36,6 @@ const App = () => {
         });
       }
     };
-
     loadUser();
   }, [dispatch]);
 
@@ -50,8 +50,8 @@ const App = () => {
         <PrivateRoute path="/add-book" component={AddBook} />
         <PrivateRoute path="/book/:id" component={Book} />
         <PrivateRoute path="/read/:id" component={Read} />
-        <PrivateRoute path="/admin/add-book" component={AddBookAdmin} />
-        <PrivateRoute path="/admin" component={HomeAdmin} />
+        <AdminRoute path="/admin/add-book" component={AddBookAdmin} />
+        <AdminRoute path="/admin" component={HomeAdmin} />
         <Route exact path="/" component={Landing} />
       </Switch>
     </Router>

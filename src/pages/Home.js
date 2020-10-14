@@ -122,7 +122,12 @@ const Home = () => {
               {loading ? (
                 <h1>Loading...</h1>
               ) : books.toString() === "" ? (
-                <h3>No Books Found in category {category}</h3>
+                <div
+                  className="alert alert-warning ml-auto mr-auto w-100 text-center"
+                  role="alert"
+                >
+                  <h3>No Books Found in category {category}</h3>
+                </div>
               ) : (
                 books.map((book, index) => {
                   return (

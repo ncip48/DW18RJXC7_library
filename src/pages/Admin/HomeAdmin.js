@@ -1,9 +1,45 @@
 import React from "react";
+import { useQuery, useMutation } from "react-query";
+import { API } from "../../config/api";
 import { Navbar } from "../../components/Navbar/";
-import bookJson from "../../assets/book.json";
-import { HiCheckCircle } from "react-icons/hi";
+import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 
 function HomeAdmin() {
+  const { isLoading, error, data: booksData, refetch } = useQuery(
+    "getBookAll",
+    () => API.get(`/books`)
+  );
+
+  const [approveBook] = useMutation(async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ status: "Approved" });
+      await API.patch(`/book/${id}`, body, config);
+      refetch();
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+
+  const [cancelBook] = useMutation(async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ status: "Canceled" });
+      await API.patch(`/book/${id}`, body, config);
+      refetch();
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+
   return (
     <>
       <Navbar />
@@ -23,49 +59,65 @@ function HomeAdmin() {
             </tr>
           </thead>
           <tbody>
-            {bookJson.map((item) => {
-              return (
-                <tr>
-                  <th>{item.id}</th>
-                  <td>{item.author}</td>
-                  <td>{item.isbn}</td>
-                  <td>{item.file}</td>
-                  <td
-                    style={{
-                      color:
-                        item.status === 1
-                          ? "#0ACF83"
-                          : item.status === 2
-                          ? "#FF0742"
-                          : "#F7941E",
-                    }}
-                  >
-                    {item.status === 1
-                      ? "Active"
-                      : item.status === 2
-                      ? "Cancel"
-                      : "Waiting to be verified"}
-                  </td>
-                  <td>
-                    {item.status === 1 ? (
-                      <HiCheckCircle size={40} color="#3BB54A" />
-                    ) : (
-                      <>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          style={{ marginRight: 10 }}
-                        >
-                          Cancel
-                        </button>
-                        <button className="btn btn-success btn-sm">
-                          Approve
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+            {isLoading ? (
+              <tr>
+                <td colSpan="6">
+                  <h3>Loading</h3>
+                </td>
+              </tr>
+            ) : error ? (
+              <h3>Error</h3>
+            ) : (
+              booksData.data.data.books.map((book, index) => {
+                return (
+                  <tr key={index}>
+                    <th>{1 + index}</th>
+                    <td>{book.userId.fullName}</td>
+                    <td>{book.ISBN}</td>
+                    <td>{book.file}</td>
+                    <td
+                      style={{
+                        color:
+                          book.status === "Approved"
+                            ? "#0ACF83"
+                            : book.status === "Canceled"
+                            ? "#FF0742"
+                            : "#F7941E",
+                      }}
+                    >
+                      {book.status === "Approved"
+                        ? "Active"
+                        : book.status === "Canceled"
+                        ? "Cancel"
+                        : "Waiting to be verified"}
+                    </td>
+                    <td>
+                      {book.status === "Approved" ? (
+                        <HiCheckCircle size={40} color="#3BB54A" />
+                      ) : book.status === "Canceled" ? (
+                        <HiXCircle size={40} color="#FF0742" />
+                      ) : (
+                        <>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            style={{ marginRight: 10 }}
+                            onClick={() => cancelBook(book.id)}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            className="btn btn-success btn-sm"
+                            onClick={() => approveBook(book.id)}
+                          >
+                            Approve
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
