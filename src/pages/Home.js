@@ -7,10 +7,6 @@ import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
 
 const Home = () => {
-  // let { isLoading, error, data: booksData } = useQuery("getBooks", () =>
-  //   API.get("/books")
-  // );
-
   const [books, setBooks] = useState([]);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
@@ -35,17 +31,19 @@ const Home = () => {
     isLoading: categoryLoading,
     error: categoryError,
     data: categoryData,
-  } = useQuery("getCategory", async () => API.get("/category"));
+  } = useQuery("getCategory", async () => await API.get("/category"));
 
-  const compare = async (id, name) => {
-    setLoading(true);
-    const res = await API.get("/books");
-    const result = res.data.data.books.filter(
-      (item) => item.category.id === parseInt(id)
-    );
-    setBooks(result);
-    setCategory(name);
-    setLoading(false);
+  const getByCategory = async (id, name) => {
+    try {
+      setLoading(true);
+      const res = await API.get(`/category/${id}`);
+      setBooks(res.data.data.categories[0].books);
+      setCategory(name);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err.message);
+    }
   };
 
   return (
@@ -108,7 +106,10 @@ const Home = () => {
                         <Dropdown.Item
                           key={index}
                           as={Button}
-                          onClick={() => compare(category.id, category.name)}
+                          onClick={() => {
+                            getByCategory(category.id, category.name);
+                            //setCategory(category.id);
+                          }}
                         >
                           {category.name}
                         </Dropdown.Item>
@@ -130,7 +131,7 @@ const Home = () => {
                 </div>
               ) : (
                 books.map((book, index) => {
-                  return (
+                  return book.status === "Approved" ? (
                     <ListBook
                       isactive
                       key={index}
@@ -139,7 +140,7 @@ const Home = () => {
                       title={book.title}
                       author={book.userId.fullName}
                     />
-                  );
+                  ) : null;
                 })
               )}
             </div>

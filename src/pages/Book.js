@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import { API } from "../config/api";
 import { FaRegBookmark } from "react-icons/fa";
 import { useParams, useHistory } from "react-router-dom";
-import { API } from "../config/api";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import CustomModal from "../components/CustomModal";
@@ -13,10 +13,29 @@ function Book() {
   const { id } = useParams();
   const history = useHistory();
   const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
 
   const { isLoading, error, data: booksData } = useQuery("getBooks", () =>
     API.get(`/book/${id}`)
   );
+
+  const [addLibraryAction] = useMutation(async (bookId) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ bookId: bookId });
+
+      const res = await API.post("/my-library", body, config);
+      //console.log(res.data.message);
+      setMessage(res.data.message);
+    } catch (err) {
+      console.log(err);
+      setMessage(err.response.data.error.message);
+    }
+  });
 
   return (
     <>
@@ -51,7 +70,10 @@ function Book() {
                     type="button"
                     className="btn btn-primary mx-2"
                     style={{ backgroundColor: "#EE4622" }}
-                    onClick={() => setShow(true)}
+                    onClick={() => {
+                      addLibraryAction(booksData.data.data.books[0].id);
+                      setShow(true);
+                    }}
                   >
                     Add Library <FaRegBookmark />
                   </button>
@@ -80,7 +102,7 @@ function Book() {
         </div>
       </div>
       <CustomModal show={show} onHide={() => setShow(false)}>
-        <h5 style={style.popup}>Your book has been added successfully</h5>
+        <h5 style={style.popup}>{message}</h5>
       </CustomModal>
     </>
   );

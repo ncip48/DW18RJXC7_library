@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { ListBook } from "../components/ListBook";
+import CustomModal from "../components/CustomModal";
 //import bookJson from "../assets/book.json";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { API } from "../config/api";
 
 function MyLibrary() {
-  const { isLoading, error, data: libraryData } = useQuery("getLibrary", () =>
-    API.get(`/my-library`)
-  );
+  const [message, setMessage] = useState("");
+  const [show, setShow] = useState(false);
 
-  console.log(libraryData);
+  const {
+    isLoading,
+    error,
+    data: libraryData,
+    refetch,
+  } = useQuery("getLibrary", () => API.get(`/my-library`));
+
+  const [removeLibraryAction] = useMutation(async (bookId) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await API.delete(`/my-library/${bookId}`, config);
+      setMessage(res.data.message);
+      refetch();
+    } catch (err) {
+      console.log(err);
+      setMessage(err.response.data.error.message);
+    }
+  });
 
   return (
     <>
@@ -39,22 +60,30 @@ function MyLibrary() {
                 </div>
               ) : (
                 libraryData.data.data.library.map((book, index) => {
-                  return (
+                  return book.books.status === "Approved" ? (
                     <ListBook
                       isactive
                       key={index}
-                      index={book.id}
+                      index={book.books.id}
                       image={book.books.thumbnail}
                       title={book.books.title}
                       author={book.books.userId.fullName}
+                      myown
+                      handleRemove={() => {
+                        removeLibraryAction(book.books.id);
+                        setShow(true);
+                      }}
                     />
-                  );
+                  ) : null;
                 })
               )}
             </div>
           </div>
         </div>
       </div>
+      <CustomModal show={show} onHide={() => setShow(false)}>
+        <h5 style={style.popup}>{message}</h5>
+      </CustomModal>
     </>
   );
 }
@@ -64,6 +93,14 @@ const style = {
     fontFamily: "Times New Roman",
     fontStyle: "normal",
     fontWeight: "bold",
+  },
+  popup: {
+    fontFamily: "Poppins",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: 20,
+    textAlign: "center",
+    color: "#469F74",
   },
 };
 export default MyLibrary;

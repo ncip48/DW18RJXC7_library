@@ -138,7 +138,7 @@ function Profile() {
                 booksProfile.data.data.users[0].books.map((book, index) => {
                   return (
                     <ListBook
-                      isactive
+                      isactive={book.status === "Waiting" ? false : true}
                       key={index}
                       index={book.id}
                       image={book.thumbnail}

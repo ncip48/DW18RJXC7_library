@@ -1,7 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export const ListBook = ({ index, image, title, author, isactive }) => {
+export const ListBook = ({
+  index,
+  image,
+  title,
+  author,
+  isactive,
+  myown,
+  handleRemove,
+}) => {
   const history = useHistory();
   const style = {
     bookTitle: {
@@ -28,21 +36,42 @@ export const ListBook = ({ index, image, title, author, isactive }) => {
   return (
     <div
       className="col-md-3 d-flex flex-column py-3"
-      onClick={() => (isactive ? history.push(`/book/${index}`) : null)}
       style={{
         cursor: isactive ? "pointer" : "default",
         backgroundColor: isactive ? "white" : "rgb(196,196,196,0.7)",
         maxWidth: 230,
       }}
     >
-      <img
-        alt="books"
-        className="figure-img img-fluid rounded"
-        src={require("../assets/img/" + image)}
-        style={{ height: 270, width: 200, opacity: isactive ? 1 : "0.5" }}
-      />
-      <h4 style={style.bookTitle}>{title}</h4>
-      <h6 style={style.txtAuthor}>{author}</h6>
+      {myown ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            marginLeft: "auto",
+            width: 20,
+            height: 20,
+            borderRadius: "50%",
+            backgroundColor: "grey",
+            color: "white",
+            textAlign: "center",
+            right: 20,
+          }}
+          className="d-flex justify-content-center align-items-center"
+          onClick={handleRemove}
+        >
+          X
+        </div>
+      ) : null}
+      <div onClick={() => (isactive ? history.push(`/book/${index}`) : null)}>
+        <img
+          alt="books"
+          className="figure-img img-fluid rounded"
+          src={require("../assets/img/" + image)}
+          style={{ height: 270, width: 200, opacity: isactive ? 1 : "0.5" }}
+        />
+        <h4 style={style.bookTitle}>{title}</h4>
+        <h6 style={style.txtAuthor}>{author}</h6>
+      </div>
     </div>
   );
 };
