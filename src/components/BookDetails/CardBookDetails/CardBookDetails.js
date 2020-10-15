@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { urlAsset } from "../../../config/api";
 
 export const CardBookDetails = (props) => {
   return (
@@ -9,7 +10,7 @@ export const CardBookDetails = (props) => {
           <img
             alt="book"
             className="figure-img img-fluid rounded thumbnail"
-            src={require(`../../../assets/img/${props.thumbnail}`)}
+            src={urlAsset.img + props.thumbnail}
           />
         </div>
         <div className="col-md-8 d-flex justify-content flex-column justify-content-between detail-books">

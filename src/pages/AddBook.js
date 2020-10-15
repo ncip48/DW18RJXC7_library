@@ -1,41 +1,134 @@
 import React, { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { CgAttachment } from "react-icons/cg";
 import CustomModal from "../components/CustomModal";
 import CustomTextInput from "../components/CustomTextInput";
 import { BiBookAdd } from "react-icons/bi";
+import { API } from "../config/api";
 
 function AddBook() {
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [pages, setPages] = useState("");
-  const [isbn, setIsbn] = useState("");
-  const [about, setAbout] = useState("");
-  const [file, setFile] = useState("");
+  const [message, setMessage] = useState("");
+  const SUPPORTED_FORMATS_IMAGE = [
+    "image/jpg",
+    "image/jpeg",
+    "image/gif",
+    "image/png",
+  ];
+  const SUPPORTED_FORMATS_BOOK = ["application/pdf", "application/epub+zip"];
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setShow(true);
-    alert(
-      "Title: " +
-        title +
-        "\nPublish Date: " +
-        date +
-        "\nCategory: " +
-        category +
-        "\nPages: " +
-        pages +
-        "\nISBN: " +
-        isbn +
-        "\nAbout: " +
-        about +
-        "\nFile: " +
-        file
-    );
-  }
+  const { isLoading, data: categoryData } = useQuery(
+    "getCategoryBook",
+    async () => await API.get("/category")
+  );
+
+  const {
+    handleSubmit,
+    getFieldProps,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      title: "",
+      date: "",
+      category: "",
+      page: "",
+      isbn: "",
+      about: "",
+      thumbnail: "",
+      book: "",
+    },
+    validateOnBlur: true,
+    validationSchema: Yup.object().shape({
+      title: Yup.string()
+        .required("Harus diisi!")
+        .min(8, "Harus 8 karakter atau lebih!"),
+      date: Yup.string()
+        .required("Harus diisi!")
+        .min(3, "Harus 3 karakter atau lebih!"),
+      category: Yup.string().required("Harus diisi!"),
+      page: Yup.number()
+        .typeError("Harus angka!")
+        .required("Harus diisi!")
+        .min(1, "Harus 1 karakter atau lebih"),
+      isbn: Yup.number()
+        .typeError("Harus angka!")
+        .required("Harus diisi!")
+        .min(1, "Harus 1 karakter atau lebih"),
+      about: Yup.string()
+        .required("Harus diisi!")
+        .min(8, "Harus 8 karakter atau lebih!"),
+      thumbnail: Yup.mixed()
+        .required("Harus dipilih!")
+        .test(
+          "fileFormat",
+          "Maaf hanya support image file",
+          (value) => value && SUPPORTED_FORMATS_IMAGE.includes(value.type)
+        ),
+      book: Yup.mixed()
+        .required("Harus dipilih!")
+        .test(
+          "fileFormat",
+          "Maaf hanya support pdf/epub",
+          (value) => value && SUPPORTED_FORMATS_BOOK.includes(value.type)
+        ),
+    }),
+    onSubmit: (values) => {
+      addBook(values);
+    },
+  });
+
+  const [addBook] = useMutation(async (values) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      // const body = JSON.stringify({
+      //   title: values.title,
+      //   publication: values.date,
+      //   id_category: values.category,
+      //   pages: values.page,
+      //   ISBN: values.isbn,
+      //   aboutBook: values.about,
+      //   file: values.book.name,
+      //   thumbnail: values.thumbnail.name,
+      //   status: null,
+      // });
+
+      var formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("publication", values.date);
+      formData.append("id_category", values.category);
+      formData.append("pages", values.page);
+      formData.append("ISBN", values.isbn);
+      formData.append("aboutBook", values.about);
+      formData.append("thumbnail", values.thumbnail);
+      formData.append("file", values.book);
+      formData.append("status", "");
+
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+
+      const res = await API.post("/book", formData, config);
+      console.log(res.data);
+      setMessage(res.data.message);
+      setShow(true);
+    } catch (err) {
+      console.log(err);
+      setMessage(err.message);
+      setShow(true);
+    }
+  });
+
   return (
     <>
       <Navbar />
@@ -48,74 +141,98 @@ function AddBook() {
             <h1 style={style.txtList} className="mb-4">
               Add Book
             </h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={handleSubmit}>
               <CustomTextInput
                 name="title"
                 type="text"
-                style={{ marginTop: 10, marginBottom: 15 }}
                 placeholder="Title"
-                required
-                value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
+                {...getFieldProps("title")}
+                error={touched.title ? errors.title : ""}
               />
               <CustomTextInput
-                name="pubdate"
-                type="number"
-                style={{ marginTop: 15, marginBottom: 15 }}
-                placeholder="Publication Date"
-                required
-                value={date}
-                onChange={(e) => {
-                  setDate(e.target.value);
-                }}
-              />
-              <CustomTextInput
-                name="category"
+                name="date"
                 type="text"
-                style={{ marginTop: 15, marginBottom: 15 }}
-                placeholder="Category"
-                required
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
+                placeholder="Publication Date"
+                {...getFieldProps("date")}
+                error={touched.date ? errors.date : ""}
               />
+              <select
+                className="form-control"
+                name="category"
+                style={style.inputGender}
+                {...getFieldProps("category")}
+              >
+                <option>Pilih category</option>
+                {isLoading ? (
+                  <option>Loading</option>
+                ) : (
+                  categoryData.data.data.categories.map((category, index) => {
+                    return <option value={category.id}>{category.name}</option>;
+                  })
+                )}
+              </select>
+              <span className="help-block text-danger">
+                {touched.category ? errors.category : ""}
+              </span>
               <CustomTextInput
                 name="page"
-                type="number"
-                style={{ marginTop: 15, marginBottom: 15 }}
+                type="text"
                 placeholder="Pages"
-                required
-                value={pages}
-                onChange={(e) => {
-                  setPages(e.target.value);
-                }}
+                {...getFieldProps("page")}
+                error={touched.page ? errors.page : ""}
               />
               <CustomTextInput
                 name="isbn"
                 type="text"
-                style={{ marginTop: 15, marginBottom: 15 }}
                 placeholder="ISBN"
-                required
-                value={isbn}
-                onChange={(e) => {
-                  setIsbn(e.target.value);
-                }}
+                {...getFieldProps("isbn")}
+                error={touched.isbn ? errors.isbn : ""}
               />
               <textarea
                 className="form-control"
                 name="about"
-                style={{ marginTop: 15, marginBottom: 15, height: 200 }}
+                style={{ marginTop: 15, height: 200 }}
                 placeholder="About This Book"
-                required
-                value={about}
-                onChange={(e) => {
-                  setAbout(e.target.value);
-                }}
+                {...getFieldProps("about")}
+                //error={touched.about ? errors.about : ""}
               />
-              <div className="form-group">
+              <span className="help-block text-danger">
+                {touched.about ? errors.about : ""}
+              </span>
+              <div className="form-group" style={{ marginTop: 20 }}>
+                <label
+                  htmlFor="thumbnail"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: 218,
+                    padding: 10,
+                    border: "2px solid #BCBCBC",
+                    backgroundColor: "rgba(210, 210, 210, 0.25)",
+                    color: "#333333",
+                  }}
+                >
+                  <CgAttachment size={30} color="#333333" />{" "}
+                  {values.thumbnail.name
+                    ? values.thumbnail.name
+                    : "Attache Book Image"}
+                </label>
+                <input
+                  type="file"
+                  className="form-control-file"
+                  id="thumbnail"
+                  name="thumbnail"
+                  style={{ display: "none" }}
+                  //onBlur={handleBlur}
+                  onChange={(e) => {
+                    setFieldValue("thumbnail", e.target.files[0]);
+                  }}
+                />
+                <span className="help-block text-danger">
+                  {touched.thumbnail ? errors.thumbnail : ""}
+                </span>
+              </div>
+              <div className="form-group" style={{ marginTop: 20 }}>
                 <label
                   htmlFor="file"
                   style={{
@@ -128,19 +245,23 @@ function AddBook() {
                     color: "#333333",
                   }}
                 >
-                  <CgAttachment size={30} color="#333333" /> Attache Book File
+                  <CgAttachment size={30} color="#333333" />{" "}
+                  {values.book.name ? values.book.name : "Attache Book File"}
                 </label>
                 <input
                   type="file"
                   className="form-control-file"
                   id="file"
+                  name="book"
                   style={{ display: "none" }}
-                  required
-                  value={file}
+                  //onBlur={handleBlur}
                   onChange={(e) => {
-                    setFile(e.target.value);
+                    setFieldValue("book", e.target.files[0]);
                   }}
                 />
+                <span className="help-block text-danger">
+                  {touched.book ? errors.book : ""}
+                </span>
               </div>
               <div className="d-flex justify-content-end">
                 <button
@@ -157,6 +278,7 @@ function AddBook() {
       </div>
       <CustomModal show={show} onHide={() => setShow(false)}>
         <h5 style={style.popup}>
+          {message} <br />
           Thank you for adding your own books to our website, please wait 1 x 24
           hours to verify whether this book is your writing
         </h5>

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 //import bookJson from "../assets/book.json";
 import { Navbar } from "../components/Navbar/";
 import { ReactReader } from "react-reader";
+import { urlAsset } from "../config/api";
 
 function Read() {
   // const { id } = useParams();
@@ -18,7 +19,7 @@ function Read() {
       <Navbar />
       <div style={{ position: "relative", height: "100vh" }}>
         <ReactReader
-          url={require(`../assets/pdf/${filename}`)}
+          url={urlAsset.books + filename}
           title={title}
           location={"epubcfi(/6/2[cover]!/6)"}
           locationChanged={(epubcifi) => console.log(epubcifi)}
