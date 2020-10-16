@@ -23,12 +23,8 @@ function Login(props) {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .required("Harus diisi!")
-        .email("Format email tidak valid!"),
-      password: Yup.string()
-        .required("Harus diisi!")
-        .min(8, "Harus 8 karakter atau lebih!"),
+      email: Yup.string().required().email(),
+      password: Yup.string().required().min(8),
     }),
     onSubmit: (values) => {
       loginAction(values);

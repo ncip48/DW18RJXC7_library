@@ -23,7 +23,7 @@ function AddBook() {
 
   const { isLoading, data: categoryData } = useQuery(
     "getCategoryBook",
-    async () => await API.get("/category")
+    async () => await API.get("/categories")
   );
 
   const {
@@ -33,6 +33,7 @@ function AddBook() {
     touched,
     values,
     setFieldValue,
+    resetForm,
   } = useFormik({
     initialValues: {
       title: "",
@@ -46,41 +47,30 @@ function AddBook() {
     },
     validateOnBlur: true,
     validationSchema: Yup.object().shape({
-      title: Yup.string()
-        .required("Harus diisi!")
-        .min(8, "Harus 8 karakter atau lebih!"),
-      date: Yup.string()
-        .required("Harus diisi!")
-        .min(3, "Harus 3 karakter atau lebih!"),
-      category: Yup.string().required("Harus diisi!"),
-      page: Yup.number()
-        .typeError("Harus angka!")
-        .required("Harus diisi!")
-        .min(1, "Harus 1 karakter atau lebih"),
-      isbn: Yup.number()
-        .typeError("Harus angka!")
-        .required("Harus diisi!")
-        .min(1, "Harus 1 karakter atau lebih"),
-      about: Yup.string()
-        .required("Harus diisi!")
-        .min(8, "Harus 8 karakter atau lebih!"),
+      title: Yup.string().required().min(8),
+      date: Yup.string().required().min(3),
+      category: Yup.string().required(),
+      page: Yup.number().typeError().required().min(1),
+      isbn: Yup.number().typeError().required().min(1),
+      about: Yup.string().required().min(8),
       thumbnail: Yup.mixed()
-        .required("Harus dipilih!")
+        .required()
         .test(
           "fileFormat",
-          "Maaf hanya support image file",
+          "Sorry only accept image filetype",
           (value) => value && SUPPORTED_FORMATS_IMAGE.includes(value.type)
         ),
       book: Yup.mixed()
-        .required("Harus dipilih!")
+        .required()
         .test(
           "fileFormat",
-          "Maaf hanya support pdf/epub",
+          "Sorry only accept epub/pdf filetype",
           (value) => value && SUPPORTED_FORMATS_BOOK.includes(value.type)
         ),
     }),
     onSubmit: (values) => {
       addBook(values);
+      resetForm({ values: "" });
     },
   });
 

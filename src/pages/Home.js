@@ -31,7 +31,7 @@ const Home = () => {
     isLoading: categoryLoading,
     error: categoryError,
     data: categoryData,
-  } = useQuery("getCategory", async () => await API.get("/category"));
+  } = useQuery("getCategory", async () => await API.get("/categories"));
 
   const getByCategory = async (id, name) => {
     try {
