@@ -127,7 +127,7 @@ function Profile() {
                 <h1>Loading...</h1>
               ) : error ? (
                 <h3>Error</h3>
-              ) : booksProfile.data.data.users[0].books.toString() === "" ? (
+              ) : booksProfile.data.data.user.books.toString() === "" ? (
                 <div
                   className="alert alert-warning ml-auto mr-auto w-100 text-center"
                   role="alert"
@@ -135,8 +135,8 @@ function Profile() {
                   <h3>No Books Found</h3>
                 </div>
               ) : (
-                booksProfile.data.data.users[0].books.map((book, index) => {
-                  return (
+                booksProfile.data.data.user.books.map((book, index) => {
+                  return book.status !== "Canceled" ? (
                     <ListBook
                       isactive={book.status === "Waiting" ? false : true}
                       key={index}
@@ -145,7 +145,7 @@ function Profile() {
                       title={book.title}
                       author={state.user.fullName}
                     />
-                  );
+                  ) : null;
                 })
               )}
             </div>

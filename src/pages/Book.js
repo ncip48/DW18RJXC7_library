@@ -53,25 +53,23 @@ function Book() {
             ) : (
               <>
                 <CardBookDetails
-                  title={booksData.data.data.books[0].title}
-                  author={booksData.data.data.books[0].userId.fullName}
-                  publication={booksData.data.data.books[0].publication}
-                  category={booksData.data.data.books[0].category.name}
-                  pages={booksData.data.data.books[0].pages}
-                  ISBN={booksData.data.data.books[0].ISBN}
-                  thumbnail={booksData.data.data.books[0].thumbnail}
+                  title={booksData.data.data.book.title}
+                  author={booksData.data.data.book.userId.fullName}
+                  publication={booksData.data.data.book.publication}
+                  category={booksData.data.data.book.category.name}
+                  pages={booksData.data.data.book.pages}
+                  ISBN={booksData.data.data.book.ISBN}
+                  thumbnail={booksData.data.data.book.thumbnail}
                 />
                 <hr style={style.divider} />
-                <AboutBookDetails
-                  text={booksData.data.data.books[0].aboutBook}
-                />
+                <AboutBookDetails text={booksData.data.data.book.aboutBook} />
                 <div className="d-flex justify-content-end">
                   <button
                     type="button"
                     className="btn btn-primary mx-2"
                     style={{ backgroundColor: "#EE4622" }}
                     onClick={() => {
-                      addLibraryAction(booksData.data.data.books[0].id);
+                      addLibraryAction(booksData.data.data.book.id);
                       setShow(true);
                     }}
                   >
@@ -85,10 +83,10 @@ function Book() {
                     }}
                     onClick={() =>
                       history.push({
-                        pathname: `/read/${booksData.data.data.books[0].id}`,
+                        pathname: `/read/${booksData.data.data.book.id}`,
                         state: {
-                          file: booksData.data.data.books[0].file,
-                          title: booksData.data.data.books[0].title,
+                          file: booksData.data.data.book.file,
+                          title: booksData.data.data.book.title,
                         },
                       })
                     }

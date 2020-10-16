@@ -23,7 +23,7 @@ export const EditPhotoProfile = () => {
       setSuccess(res.data.message);
       dispatch({
         type: "UPDATE_PP_SUCCESS",
-        payload: res.data.data.user[0],
+        payload: res.data.data.user,
       });
     } catch (err) {
       console.log(err.message);

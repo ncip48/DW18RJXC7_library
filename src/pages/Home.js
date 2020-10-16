@@ -37,7 +37,7 @@ const Home = () => {
     try {
       setLoading(true);
       const res = await API.get(`/category/${id}`);
-      setBooks(res.data.data.categories[0].books);
+      setBooks(res.data.data.category.books);
       setCategory(name);
       setLoading(false);
     } catch (err) {
