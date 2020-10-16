@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Navbar } from "../../components/Navbar";
 import Login from "../Login";
 import Register from "../Register";
 import CustomModal from "../../components/CustomModal";
+import { UserContext } from "../../context/userContext";
 import "./style.css";
 
 export const Landing = () => {
+  const history = useHistory();
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [state] = useContext(UserContext);
+
+  useEffect(() => {
+    state.user
+      ? state.user.role === 1
+        ? history.push("/admin")
+        : history.push("/dashboard")
+      : history.push("/");
+  }, [history, state.user]);
 
   return (
     <>
