@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Navbar } from "../components/Navbar/";
 import { Sidebar } from "../components/Sidebar";
 import { CgAttachment } from "react-icons/cg";
@@ -41,7 +43,7 @@ function AddBook() {
       category: "",
       page: "",
       isbn: "",
-      about: "",
+      about: "About This Book",
       thumbnail: "",
       book: "",
     },
@@ -81,17 +83,6 @@ function AddBook() {
           "Content-Type": "multipart/form-data",
         },
       };
-      // const body = JSON.stringify({
-      //   title: values.title,
-      //   publication: values.date,
-      //   id_category: values.category,
-      //   pages: values.page,
-      //   ISBN: values.isbn,
-      //   aboutBook: values.about,
-      //   file: values.book.name,
-      //   thumbnail: values.thumbnail.name,
-      //   status: null,
-      // });
 
       var formData = new FormData();
       formData.append("title", values.title);
@@ -104,12 +95,12 @@ function AddBook() {
       formData.append("file", values.book);
       formData.append("status", "");
 
-      for (var value of formData.values()) {
-        console.log(value);
-      }
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
 
       const res = await API.post("/book", formData, config);
-      console.log(res.data);
+      //console.log(res.data);
       setMessage(res.data.message);
       setShow(true);
     } catch (err) {
@@ -152,12 +143,16 @@ function AddBook() {
                 style={style.inputGender}
                 {...getFieldProps("category")}
               >
-                <option>Pilih category</option>
+                <option>Select category</option>
                 {isLoading ? (
-                  <option>Loading</option>
+                  <option disabled>Loading</option>
                 ) : (
                   categoryData.data.data.categories.map((category, index) => {
-                    return <option value={category.id}>{category.name}</option>;
+                    return (
+                      <option value={category.id} key={index}>
+                        {category.name}
+                      </option>
+                    );
                   })
                 )}
               </select>
@@ -178,7 +173,7 @@ function AddBook() {
                 {...getFieldProps("isbn")}
                 error={touched.isbn ? errors.isbn : ""}
               />
-              <textarea
+              {/* <textarea
                 className="form-control"
                 name="about"
                 style={{ marginTop: 15, height: 200 }}
@@ -188,7 +183,32 @@ function AddBook() {
               />
               <span className="help-block text-danger">
                 {touched.about ? errors.about : ""}
-              </span>
+              </span> */}
+              <div className="form-group" style={{ marginTop: 20 }}>
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={values.about}
+                  style={{ height: 200 }}
+                  onInit={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    //console.log("Editor is ready to use!", editor);
+                    editor.editing.view.change((writer) => {
+                      writer.setStyle(
+                        "height",
+                        "200px",
+                        editor.editing.view.document.getRoot()
+                      );
+                    });
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setFieldValue("about", data);
+                  }}
+                />
+                <span className="help-block text-danger">
+                  {touched.about ? errors.about : ""}
+                </span>
+              </div>
               <div className="form-group" style={{ marginTop: 20 }}>
                 <label
                   htmlFor="thumbnail"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "react-query";
 import { API } from "../config/api";
+import ReactHtmlParser from "react-html-parser";
 import { FaRegBookmark } from "react-icons/fa";
 import { useParams, useHistory } from "react-router-dom";
 import { Navbar } from "../components/Navbar/";
@@ -62,7 +63,9 @@ function Book() {
                   thumbnail={booksData.data.data.book.thumbnail}
                 />
                 <hr style={style.divider} />
-                <AboutBookDetails text={booksData.data.data.book.aboutBook} />
+                <AboutBookDetails
+                  text={ReactHtmlParser(booksData.data.data.book.aboutBook)}
+                />
                 <div className="d-flex justify-content-end">
                   <button
                     type="button"

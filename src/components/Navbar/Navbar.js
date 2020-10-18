@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Dropdown, Button } from "react-bootstrap";
 import { BiBookAdd, BiLogOut } from "react-icons/bi";
 import { UserContext } from "../../context/userContext";
+import { urlAsset } from "../../config/api";
 import "./style.css";
 
 export const Navbar = () => {
@@ -52,7 +53,11 @@ export const Navbar = () => {
                 }}
               >
                 <img
-                  src={require("../../assets/img/pp.png")}
+                  src={
+                    state.user.photoProfile === null
+                      ? require("../../assets/img/blank.png")
+                      : urlAsset.img + state.user.photoProfile
+                  }
                   style={{
                     height: 50,
                     width: 50,

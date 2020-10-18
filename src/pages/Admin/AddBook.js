@@ -1,40 +1,113 @@
 import React, { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Navbar } from "../../components/Navbar/";
 import { CgAttachment } from "react-icons/cg";
 import CustomModal from "../../components/CustomModal";
 import CustomTextInput from "../../components/CustomTextInput";
 import { BiBookAdd } from "react-icons/bi";
+import { API } from "../../config/api";
 
-function AddBookAdmin() {
+function AddBook() {
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [pages, setPages] = useState("");
-  const [isbn, setIsbn] = useState("");
-  const [about, setAbout] = useState("");
-  const [file, setFile] = useState("");
+  const [message, setMessage] = useState("");
+  const SUPPORTED_FORMATS_IMAGE = [
+    "image/jpg",
+    "image/jpeg",
+    "image/gif",
+    "image/png",
+  ];
+  const SUPPORTED_FORMATS_BOOK = ["application/pdf", "application/epub+zip"];
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setShow(true);
-    alert(
-      "Title: " +
-        title +
-        "\nPublish Date: " +
-        date +
-        "\nCategory: " +
-        category +
-        "\nPages: " +
-        pages +
-        "\nISBN: " +
-        isbn +
-        "\nAbout: " +
-        about +
-        "\nFile: " +
-        file
-    );
-  }
+  const { isLoading, data: categoryData } = useQuery(
+    "getCategoryBook",
+    async () => await API.get("/categories")
+  );
+
+  const {
+    handleSubmit,
+    getFieldProps,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      title: "",
+      date: "",
+      category: "",
+      page: "",
+      isbn: "",
+      about: "",
+      thumbnail: "",
+      book: "",
+    },
+    validateOnBlur: true,
+    validationSchema: Yup.object().shape({
+      title: Yup.string().required().min(8),
+      date: Yup.string().required().min(3),
+      category: Yup.string().required(),
+      page: Yup.number().typeError().required().min(1),
+      isbn: Yup.number().typeError().required().min(1),
+      about: Yup.string().required().min(8),
+      thumbnail: Yup.mixed()
+        .required()
+        .test(
+          "fileFormat",
+          "Sorry only accept image filetype",
+          (value) => value && SUPPORTED_FORMATS_IMAGE.includes(value.type)
+        ),
+      book: Yup.mixed()
+        .required()
+        .test(
+          "fileFormat",
+          "Sorry only accept epub/pdf filetype",
+          (value) => value && SUPPORTED_FORMATS_BOOK.includes(value.type)
+        ),
+    }),
+    onSubmit: (values) => {
+      addBook(values);
+      resetForm({ values: "" });
+    },
+  });
+
+  const [addBook] = useMutation(async (values) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      var formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("publication", values.date);
+      formData.append("id_category", values.category);
+      formData.append("pages", values.page);
+      formData.append("ISBN", values.isbn);
+      formData.append("aboutBook", values.about);
+      formData.append("thumbnail", values.thumbnail);
+      formData.append("file", values.book);
+      formData.append("status", "");
+
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
+
+      const res = await API.post("/book", formData, config);
+      //console.log(res.data);
+      setMessage(res.data.message);
+      setShow(true);
+    } catch (err) {
+      console.log(err);
+      setMessage(err.message);
+      setShow(true);
+    }
+  });
+
   return (
     <>
       <Navbar />
@@ -42,76 +115,93 @@ function AddBookAdmin() {
         <h1 style={style.txtList} className="mb-4">
           Add Book
         </h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <CustomTextInput
             name="title"
             type="text"
-            style={{ marginTop: 10, marginBottom: 15 }}
             placeholder="Title"
-            required
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+            {...getFieldProps("title")}
+            error={touched.title ? errors.title : ""}
           />
           <CustomTextInput
-            name="pubdate"
-            type="number"
-            style={{ marginTop: 15, marginBottom: 15 }}
-            placeholder="Publication Date"
-            required
-            value={date}
-            onChange={(e) => {
-              setDate(e.target.value);
-            }}
-          />
-          <CustomTextInput
-            name="category"
+            name="date"
             type="text"
-            style={{ marginTop: 15, marginBottom: 15 }}
-            placeholder="Category"
-            required
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
+            placeholder="Publication Date"
+            {...getFieldProps("date")}
+            error={touched.date ? errors.date : ""}
           />
+          <select
+            className="form-control"
+            name="category"
+            style={style.inputGender}
+            {...getFieldProps("category")}
+          >
+            <option>Select category</option>
+            {isLoading ? (
+              <option>Loading</option>
+            ) : (
+              categoryData.data.data.categories.map((category, index) => {
+                return (
+                  <option value={category.id} key={index}>
+                    {category.name}
+                  </option>
+                );
+              })
+            )}
+          </select>
+          <span className="help-block text-danger">
+            {touched.category ? errors.category : ""}
+          </span>
           <CustomTextInput
             name="page"
-            type="number"
-            style={{ marginTop: 15, marginBottom: 15 }}
+            type="text"
             placeholder="Pages"
-            required
-            value={pages}
-            onChange={(e) => {
-              setPages(e.target.value);
-            }}
+            {...getFieldProps("page")}
+            error={touched.page ? errors.page : ""}
           />
           <CustomTextInput
             name="isbn"
             type="text"
-            style={{ marginTop: 15, marginBottom: 15 }}
             placeholder="ISBN"
-            required
-            value={isbn}
-            onChange={(e) => {
-              setIsbn(e.target.value);
-            }}
+            {...getFieldProps("isbn")}
+            error={touched.isbn ? errors.isbn : ""}
           />
-          <textarea
+          {/* <textarea
             className="form-control"
             name="about"
-            style={{ marginTop: 15, marginBottom: 15, height: 200 }}
+            style={{ marginTop: 15, height: 200 }}
             placeholder="About This Book"
-            required
-            value={about}
-            onChange={(e) => {
-              setAbout(e.target.value);
-            }}
-          />
-          <div class="form-group">
+            {...getFieldProps("about")}
+            //error={touched.about ? errors.about : ""}
+          /> */}
+          <div className="form-group" style={{ marginTop: 20 }}>
+            <CKEditor
+              editor={ClassicEditor}
+              data="About This Book"
+              style={{ height: 200 }}
+              onInit={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                //console.log("Editor is ready to use!", editor);
+                editor.editing.view.change((writer) => {
+                  writer.setStyle(
+                    "height",
+                    "200px",
+                    editor.editing.view.document.getRoot()
+                  );
+                });
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setFieldValue("about", data);
+              }}
+            />
+            <span className="help-block text-danger">
+              {touched.about ? errors.about : ""}
+            </span>
+          </div>
+          <div className="form-group" style={{ marginTop: 20 }}>
             <label
-              for="file"
+              htmlFor="thumbnail"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -122,19 +212,56 @@ function AddBookAdmin() {
                 color: "#333333",
               }}
             >
-              <CgAttachment size={30} color="#333333" /> Attache Book File
+              <CgAttachment size={30} color="#333333" />{" "}
+              {values.thumbnail.name
+                ? values.thumbnail.name
+                : "Attache Book Image"}
             </label>
             <input
               type="file"
-              class="form-control-file"
-              id="file"
+              className="form-control-file"
+              id="thumbnail"
+              name="thumbnail"
               style={{ display: "none" }}
-              required
-              value={file}
+              //onBlur={handleBlur}
               onChange={(e) => {
-                setFile(e.target.value);
+                setFieldValue("thumbnail", e.target.files[0]);
               }}
             />
+            <span className="help-block text-danger">
+              {touched.thumbnail ? errors.thumbnail : ""}
+            </span>
+          </div>
+          <div className="form-group" style={{ marginTop: 20 }}>
+            <label
+              htmlFor="file"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: 218,
+                padding: 10,
+                border: "2px solid #BCBCBC",
+                backgroundColor: "rgba(210, 210, 210, 0.25)",
+                color: "#333333",
+              }}
+            >
+              <CgAttachment size={30} color="#333333" />{" "}
+              {values.book.name ? values.book.name : "Attache Book File"}
+            </label>
+            <input
+              type="file"
+              className="form-control-file"
+              id="file"
+              name="book"
+              style={{ display: "none" }}
+              //onBlur={handleBlur}
+              onChange={(e) => {
+                setFieldValue("book", e.target.files[0]);
+              }}
+            />
+            <span className="help-block text-danger">
+              {touched.book ? errors.book : ""}
+            </span>
           </div>
           <div className="d-flex justify-content-end">
             <button
@@ -148,7 +275,7 @@ function AddBookAdmin() {
         </form>
       </div>
       <CustomModal show={show} onHide={() => setShow(false)}>
-        <h5 style={style.popup}>Book has been added successfully</h5>
+        <h5 style={style.popup}>{message}</h5>
       </CustomModal>
     </>
   );
@@ -170,4 +297,4 @@ const style = {
     textAlign: "center",
   },
 };
-export default AddBookAdmin;
+export default AddBook;
