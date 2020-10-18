@@ -13,7 +13,10 @@ import { API } from "../../config/api";
 
 function AddBook() {
   const [show, setShow] = useState(false);
+  const [showCategory, setShowCategory] = useState(false);
   const [message, setMessage] = useState("");
+  const [category, setCategory] = useState("");
+
   const SUPPORTED_FORMATS_IMAGE = [
     "image/jpg",
     "image/jpeg",
@@ -22,7 +25,7 @@ function AddBook() {
   ];
   const SUPPORTED_FORMATS_BOOK = ["application/pdf", "application/epub+zip"];
 
-  const { isLoading, data: categoryData } = useQuery(
+  const { isLoading, data: categoryData, refetch } = useQuery(
     "getCategoryBook",
     async () => await API.get("/categories")
   );
@@ -108,6 +111,23 @@ function AddBook() {
     }
   });
 
+  const [addCategoryAction] = useMutation(async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ name: category });
+      //console.log(body);
+      await API.post("/category", body, config);
+      refetch();
+      setShowCategory(false);
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+
   return (
     <>
       <Navbar />
@@ -152,6 +172,9 @@ function AddBook() {
           <span className="help-block text-danger">
             {touched.category ? errors.category : ""}
           </span>
+          <a href="#add" onClick={() => setShowCategory(true)}>
+            <span>+ add category</span>
+          </a>
           <CustomTextInput
             name="page"
             type="text"
@@ -276,6 +299,32 @@ function AddBook() {
       </div>
       <CustomModal show={show} onHide={() => setShow(false)}>
         <h5 style={style.popup}>{message}</h5>
+      </CustomModal>
+      <CustomModal show={showCategory} onHide={() => setShowCategory(false)}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addCategoryAction();
+          }}
+        >
+          <CustomTextInput
+            name="category"
+            type="text"
+            placeholder="Name category"
+            value={category}
+            onChange={(e) => {
+              e.preventDefault();
+              setCategory(e.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            className="btn btn-danger btn-block"
+            style={{ marginBottom: 20, backgroundColor: "#EE4622" }}
+          >
+            Add Category
+          </button>
+        </form>
       </CustomModal>
     </>
   );

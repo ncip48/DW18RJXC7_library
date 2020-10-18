@@ -16,7 +16,7 @@ const CustomModal = (props) => {
       }}
     >
       <Modal.Body style={{ padding: 30 }}>
-        <h1>{props.title}</h1>
+        <h1 style={{ margin: 0 }}>{props.title}</h1>
         {props.children}
       </Modal.Body>
     </Modal>

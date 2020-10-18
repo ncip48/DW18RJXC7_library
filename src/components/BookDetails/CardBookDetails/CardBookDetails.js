@@ -9,7 +9,7 @@ export const CardBookDetails = (props) => {
         <div className="col-md-4 d-flex justify-content-center flex-column img-books">
           <img
             alt="book"
-            className="figure-img img-fluid rounded thumbnail"
+            className="figure-img img-fluid thumbnail"
             src={urlAsset.img + props.thumbnail}
           />
         </div>

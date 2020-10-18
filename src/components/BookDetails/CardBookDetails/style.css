@@ -36,3 +36,6 @@
   height: 500px;
   width: 400px;
 }
+.thumbnail {
+  border-radius: 10px;
+}

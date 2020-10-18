@@ -66,9 +66,14 @@ export const ListBook = ({
       <div onClick={() => (isactive ? history.push(`/book/${index}`) : null)}>
         <img
           alt="books"
-          className="figure-img img-fluid rounded"
+          className="figure-img img-fluid"
           src={urlAsset.img + image}
-          style={{ height: 270, width: 200, opacity: isactive ? 1 : "0.5" }}
+          style={{
+            height: 270,
+            width: 200,
+            opacity: isactive ? 1 : "0.5",
+            borderRadius: 10,
+          }}
         />
         <h4 style={style.bookTitle}>{title}</h4>
         <h6 style={style.txtAuthor}>{author}</h6>
