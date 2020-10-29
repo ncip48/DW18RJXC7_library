@@ -98,12 +98,7 @@ function AddBook() {
       formData.append("file", values.book);
       formData.append("status", "");
 
-      // for (var value of formData.values()) {
-      //   console.log(value);
-      // }
-
       const res = await API.post("/book", formData, config);
-      //console.log(res.data);
       setMessage(res.data.message);
       setShow(true);
     } catch (err) {
@@ -196,25 +191,12 @@ function AddBook() {
                 {...getFieldProps("isbn")}
                 error={touched.isbn ? errors.isbn : ""}
               />
-              {/* <textarea
-                className="form-control"
-                name="about"
-                style={{ marginTop: 15, height: 200 }}
-                placeholder="About This Book"
-                {...getFieldProps("about")}
-                //error={touched.about ? errors.about : ""}
-              />
-              <span className="help-block text-danger">
-                {touched.about ? errors.about : ""}
-              </span> */}
               <div className="form-group" style={{ marginTop: 20 }}>
                 <CKEditor
                   editor={ClassicEditor}
                   data={values.about}
                   style={{ height: 200 }}
                   onInit={(editor) => {
-                    // You can store the "editor" and use when it is needed.
-                    //console.log("Editor is ready to use!", editor);
                     editor.editing.view.change((writer) => {
                       writer.setStyle(
                         "height",
@@ -287,7 +269,6 @@ function AddBook() {
                   id="file"
                   name="book"
                   style={{ display: "none" }}
-                  //onBlur={handleBlur}
                   onChange={(e) => {
                     setFieldValue("book", e.target.files[0]);
                   }}

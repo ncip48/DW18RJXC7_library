@@ -30,7 +30,6 @@ function Book() {
       const body = JSON.stringify({ bookId: bookId });
 
       const res = await API.post("/my-library", body, config);
-      //console.log(res.data.message);
       setMessage(res.data.message);
     } catch (err) {
       console.log(err);
