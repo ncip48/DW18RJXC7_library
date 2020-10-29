@@ -2,7 +2,7 @@ import axios from "axios";
 
 //set default config base url
 export const API = axios.create({
-  //baseURL: "https://herly-backend-library.herokuapp.com/api/v1",
+  baseURL: "https://herly-backend-library.herokuapp.com/api/v1",
   // baseURL: "http://localhost:5000/api/v1",
 });
 
