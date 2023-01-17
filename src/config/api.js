@@ -2,7 +2,7 @@ import axios from "axios";
 
 //set default config base url
 export const API = axios.create({
-  baseURL: "http://gpbmscript.com:5000/api/v1",
+  baseURL: "http://gpbmscript.com:8070/api/v1",
   // baseURL: "http://localhost:5000/api/v1",
 });
 
@@ -19,6 +19,6 @@ export const setAuthToken = (token) => {
 
 // production
 export const urlAsset = {
-  img: "http://gpbmscript.com:5000/src/uploads/img/",
-  books: "http://gpbmscript.com:5000/src/uploads/books/",
+  img: "http://gpbmscript.com:8070/src/uploads/img/",
+  books: "http://gpbmscript.com:8070/src/uploads/books/",
 };
